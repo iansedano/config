@@ -172,10 +172,10 @@ alias venv="source venv/bin/activate"
 # Java
 # ========================================
 
-idea() {
-  [[ -z $1 ]] && runbg idea.sh . || runbg idea.sh $1
-}
-compdef '_files' idea
+# idea() {
+  # [[ -z $1 ]] && runbg idea.sh . || runbg idea.sh $1
+# }
+# compdef '_files' idea
 
 [ -s "$HOMEBREW_PREFIX/opt/jabba/jabba.sh" ] && . "$HOMEBREW_PREFIX/opt/jabba/jabba.sh"
 jabba use openjdk@17.0.2

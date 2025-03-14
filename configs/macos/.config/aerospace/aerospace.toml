@@ -156,3 +156,10 @@ run = 'layout floating'
 if.app-id = 'com.cisco.secureclient.gui'
 run = 'layout floating'
 
+[[on-window-detected]]
+if.app-id = 'cc.ffitch.shottr'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.sublimetext.4'
+run = 'layout floating'
