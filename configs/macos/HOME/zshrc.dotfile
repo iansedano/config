@@ -82,6 +82,7 @@ alias wtf="cd $WTF"
 alias openconfig="nvim $CONFIG"
 alias openwtf="nvim $WTF"
 alias opennotebook="nvim $NOTEBOOK"
+alias ban="code ${HOME}/dev/code-workspaces/ban.code-workspace"
 
 # ========================================
 # Utils
