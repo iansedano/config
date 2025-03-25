@@ -58,6 +58,8 @@ formulae=(
 
   jabba
   nvm
+  presenterm         # Terminal presentation tool
+  pnpm              # Node package manager
 )
 
 casks=(
