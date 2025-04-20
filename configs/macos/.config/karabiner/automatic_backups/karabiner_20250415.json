@@ -5,27 +5,6 @@
             "complex_modifications": {
                 "rules": [
                     {
-                        "description": "Right Option P to Print Screen",
-                        "manipulators": [
-                            {
-                                "from": {
-                                    "key_code": "p",
-                                    "modifiers": {
-                                        "mandatory": ["right_option"],
-                                        "optional": ["any"]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "print_screen",
-                                        "modifiers": []
-                                    }
-                                ],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
                         "description": "Swap \"command + tab\" with \"control + tab\" optional shift.",
                         "enabled": false,
                         "manipulators": [
