@@ -122,4 +122,10 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_completion
 nvm install --lts
 
+
+# Need to test if these work from the same script
+#
 npm install -g git-removed-branches
+npm install -g @anthropic-ai/claude-code
+npm install -g @openai/codex
+
