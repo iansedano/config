@@ -68,7 +68,7 @@ casks=(
   sublime-text          # Fast, simple IDE
   font-cascadia-code-nf # Nerd font for terminal
   xournal++             # Notetaking, good for annotating PDFs
-  dehesselle-meld       # Diff GUI tool
+  meld                  # Diff GUI tool
   keepassxc             # Password manager GUI
   pinta                 # Paint.net like app
   inkscape              # Open source vector image app
@@ -107,6 +107,9 @@ brew install --cask nikitabobko/tap/aerospace
 brew tap dimentium/autoraise
 brew install autoraise
 brew services start autoraise
+
+brew tap ankitpokhrel/jira-cli
+brew install jira-cli
 
 pyenv update
 pyenv rehash
