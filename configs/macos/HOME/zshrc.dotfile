@@ -179,7 +179,7 @@ alias venv="source venv/bin/activate"
 # compdef '_files' idea
 
 [ -s "$HOMEBREW_PREFIX/opt/jabba/jabba.sh" ] && . "$HOMEBREW_PREFIX/opt/jabba/jabba.sh"
-jabba use openjdk@17.0.2
+jabba use amazon-corretto@1.21.0-7.6.1
 
 # ========================================
 # Rust
