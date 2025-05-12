@@ -48,6 +48,14 @@ formulae=(
   docker
   docker-compose
   mkcert
+  libpq              # Postgres client
+  kubectl            # Kubernetes CLI
+  kubectx            # Kubernetes context switcher
+  kubens            # Kubernetes namespace switcher
+  kubetail                    # Kubernetes log tailing
+  derailed/k9s/k9s            # Kubernetes CLI UI
+  metalbear-co/mirrord/mirrod # Kubernetes development proxy
+
 
   pyenv
   openssl
@@ -85,6 +93,7 @@ casks=(
   docker
   maccy                 # Clipboard manager
   shottr                # Screenshot tool
+  intellij-idea         # Java IDE
 )
 
 #  ripcord                 # Light and fast app for Discord and Slack
