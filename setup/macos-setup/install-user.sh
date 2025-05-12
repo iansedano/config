@@ -55,6 +55,7 @@ formulae=(
   kubetail                    # Kubernetes log tailing
   derailed/k9s/k9s            # Kubernetes CLI UI
   metalbear-co/mirrord/mirrod # Kubernetes development proxy
+  rancher-cli                 # Rancher CLI - Docker replacement
 
 
   pyenv                       # Python version manager
