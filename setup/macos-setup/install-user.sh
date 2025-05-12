@@ -9,65 +9,65 @@ formulae=(
   # ==========
   # CLI Tools
   # ==========
-  bat                # cat replacement
-  curl               # download
-  lazygit            # git tui
-  dos2unix           # Convert line endings
-  entr               # Run command on file change
-  eza                # ls replacement (exa no longer)
-  fd                 # find replacement
-  fzf                # fuzzy finder
-  git                # version control
-  diff-so-fancy      # nicer diff view
-  ripgrep            # grep replacement
-  openssh            # ssh
-  tmux               # terminal multiplexer
-  wget               # download
-  mc                 # Midnight commander
-  neovim             # Text editor
-  nethogs            # Bandwidth monitor
-  direnv             # Environment manager
-  zoxide             # z autojump replacement
-  qpdf               # PDF manipulation
-  gh                 # Github CLI
-  imagemagick        # Image manipulation
-  libjpeg-turbo      # JPEG manipulation
-  pipx               # Python installer for standalone execs
-  oh-my-posh         # Prompt theme engine
-  ansible            # Install automation
-  saulpw/vs/visidata # cli spreadsheet
-  gnumeric           # Lightweight, fast spreadsheet app
-  pipx               # Python installer for standalone execs
-  xonsh              # Python shell
-  ruff               # Python linter and formatter
-  tre-command        # Modern tree command
-  saml2aws           # AWS SAML CLI
-  awscli             # AWS CLI
-  just               # Justfile runner (like Makefile)
-  # autoenv            # Directory based environment activation, not used because interferes with ZOxide
+  bat                         # cat replacement
+  curl                        # download
+  lazygit                     # git tui
+  dos2unix                    # Convert line endings
+  entr                        # Run command on file change
+  eza                         # ls replacement (exa no longer)
+  fd                          # find replacement
+  fzf                         # fuzzy finder
+  git                         # version control
+  diff-so-fancy               # nicer diff view
+  ripgrep                     # grep replacement
+  openssh                     # ssh
+  tmux                        # terminal multiplexer
+  wget                        # download
+  mc                          # Midnight commander
+  neovim                      # Text editor
+  nethogs                     # Bandwidth monitor
+  direnv                      # Environment manager
+  zoxide                      # z autojump replacement
+  qpdf                        # PDF manipulation
+  gh                          # Github CLI
+  imagemagick                 # Image manipulation
+  libjpeg-turbo               # JPEG manipulation
+  pipx                        # Python installer for standalone execs
+  oh-my-posh                  # Prompt theme engine
+  ansible                     # Install automation
+  saulpw/vs/visidata          # cli spreadsheet
+  gnumeric                    # Lightweight, fast spreadsheet app
+  pipx                        # Python installer for standalone execs
+  xonsh                       # Python shell
+  ruff                        # Python linter and formatter
+  tre-command                 # Modern tree command
+  saml2aws                    # AWS SAML CLI
+  awscli                      # AWS CLI
+  just                        # Justfile runner (like Makefile)
+  # autoenv                   # Directory based environment activation, not used because interferes with ZOxide
   docker
   docker-compose
   mkcert
-  libpq              # Postgres client
-  kubectl            # Kubernetes CLI
-  kubectx            # Kubernetes context switcher
-  kubens            # Kubernetes namespace switcher
+  libpq                       # Postgres client
+  kubectl                     # Kubernetes CLI
+  kubectx                     # Kubernetes context switcher
+  kubens                      # Kubernetes namespace switcher
   kubetail                    # Kubernetes log tailing
   derailed/k9s/k9s            # Kubernetes CLI UI
   metalbear-co/mirrord/mirrod # Kubernetes development proxy
 
 
-  pyenv
-  openssl
-  sqlite3
-  xz
-  zlib
-  tcl-tk@8
+  pyenv                       # Python version manager
+  openssl                     # SSL
+  sqlite3                     # SQLite
+  xz                          # Compression
+  zlib                        # Compression
+  tcl-tk@8                    # Tcl/Tk GUI Toolkit
 
-  jabba
-  nvm
-  presenterm         # Terminal presentation tool
-  pnpm              # Node package manager
+  jabba                       # Java version manager
+  nvm                         # Node version manager
+  presenterm                  # Terminal presentation tool
+  pnpm                        # Node package manager
 )
 
 casks=(
