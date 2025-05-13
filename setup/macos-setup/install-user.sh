@@ -95,6 +95,8 @@ casks=(
   maccy                 # Clipboard manager
   shottr                # Screenshot tool
   intellij-idea         # Java IDE
+  rancher               # Docker replacement
+  postman               # API testing
 )
 
 #  ripcord                 # Light and fast app for Discord and Slack
