@@ -187,6 +187,11 @@ jabba use amazon-corretto@1.21.0-7.6.1
 
 [[ -x "$(command -v rustup)" ]] && source "$HOME/.cargo/env"
 
+# B
+
+saml2aws login
+vpn status
+
 # ========================================
 # zoxide (must be at end of file)
 # ========================================
