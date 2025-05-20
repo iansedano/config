@@ -97,6 +97,7 @@ casks=(
   intellij-idea         # Java IDE
   rancher               # Docker replacement
   postman               # API testing
+  jordanbaird-ice       # Menubar customizer
 )
 
 #  ripcord                 # Light and fast app for Discord and Slack
