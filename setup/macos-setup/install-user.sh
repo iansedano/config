@@ -56,7 +56,7 @@ formulae=(
   derailed/k9s/k9s            # Kubernetes CLI UI
   metalbear-co/mirrord/mirrod # Kubernetes development proxy
   rancher-cli                 # Rancher CLI - Docker replacement
-
+  flyway                      # Database migration tool
 
   pyenv                       # Python version manager
   openssl                     # SSL
@@ -98,6 +98,7 @@ casks=(
   rancher               # Docker replacement
   postman               # API testing
   jordanbaird-ice       # Menubar customizer
+  tableplus             # Database GUI
 )
 
 #  ripcord                 # Light and fast app for Discord and Slack

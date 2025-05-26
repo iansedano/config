@@ -189,7 +189,7 @@ jabba use amazon-corretto@1.21.0-7.6.1
 
 # B
 
-saml2aws login
+saml2aws login --skip-prompt
 vpn status
 
 # ========================================
