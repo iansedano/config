@@ -1,23 +1,26 @@
 [user]
-	email = ian.currie@bynder.com
-	name = Ian Currie
+email = ian.currie@bynder.com
+name = Ian Currie
 
 [alias]
-	pushall = "!f() { git add -A && git commit -m \"$@\" && git push; }; f"
-	commitall = "!f() { git add -A && git commit -m \"$@\"; }; f"
-	amendpush = "!f() { git add -A && git commit --amend --no-edit && git push -f; }; f"
-	amm = commit --amend --no-edit
-	ll = log --graph --decorate --oneline
-	last = log -1
-	recent = log -5 --oneline --graph
-	s = status
+pushall = "!f() { git add -A && git commit -m \"$@\" && git push; }; f"
+commitall = "!f() { git add -A && git commit -m \"$@\"; }; f"
+amendpush = "!f() { git add -A && git commit --amend --no-edit && git push -f; }; f"
+amm = commit --amend --no-edit
+ll = log --graph --decorate --oneline
+last = log -1
+recent = log -10 --oneline --graph --decorate
+s = status
 [safe]
-	directory = *
+directory = *
 [core]
-	autocrlf = input
+autocrlf = input
+pager = diff-so-fancy | bat --paging=always --style=plain
 [init]
-	defaultBranch = main
+defaultBranch = main
 [core]
-  editor = "$(command -v nvim || echo 'vi')"
+editor = "$(command -v nvim || echo 'vi')"
 [push]
-  autoSetupRemote = true
+autoSetupRemote = true
+[interactive]
+diffFilter = diff-so-fancy --patch

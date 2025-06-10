@@ -10,6 +10,11 @@ WTF="$DEV/iansedano/wtf"
 POSH_CONFIG="$CONFIG/configs/common/posh.omp.json"
 SNIPPETS="$WTF/snippets"
 SCRIPTS="$CONFIG/scripts"
+DOT_CONFIG="$HOME/.config"
+IAN_CONFIG="$DOT_CONFIG/iansedano"
+
+source "$IAN_CONFIG/import_script.sh"
+source "$DEV/iansedano/billy/scripts/bynderrc"
 
 # ========================================
 # User specific environment
@@ -22,6 +27,9 @@ export PATH="$DEV/iansedano/billy/scripts:$PATH"
 
 export VISUAL=nvim
 export EDITOR=nvim
+
+export PAGER="bat"
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
 # ========================================
 # Prompt
@@ -56,20 +64,6 @@ if command -v fzf >/dev/null; then
 fi
 
 # ========================================
-# Light and Dark Mode
-# ========================================
-
-light() {
-  export BAT_THEME="gruvbox-light"
-  alacritty msg config "$(cat ~/.config/alacritty/light.toml)"
-}
-
-dark() {
-  export BAT_THEME=""
-  alacritty msg config "$(cat ~/.config/alacritty/alacritty.toml)"
-}
-
-# ========================================
 # Shortcuts
 # ========================================
 
@@ -79,10 +73,6 @@ alias dropdev="cd $DROPBOX_DEV"
 alias config="cd $CONFIG"
 alias notebook="cd $NOTEBOOK"
 alias wtf="cd $WTF"
-alias openconfig="nvim $CONFIG"
-alias openwtf="nvim $WTF"
-alias opennotebook="nvim $NOTEBOOK"
-alias ban="code ${HOME}/dev/code-workspaces/ban.code-workspace"
 
 # ========================================
 # Utils
@@ -174,7 +164,7 @@ alias venv="source venv/bin/activate"
 # ========================================
 
 # idea() {
-  # [[ -z $1 ]] && runbg idea.sh . || runbg idea.sh $1
+# [[ -z $1 ]] && runbg idea.sh . || runbg idea.sh $1
 # }
 # compdef '_files' idea
 
@@ -187,11 +177,6 @@ jabba use amazon-corretto@1.21.0-7.6.1
 
 [[ -x "$(command -v rustup)" ]] && source "$HOME/.cargo/env"
 
-# B
-
-saml2aws login --skip-prompt
-vpn status
-
 # ========================================
 # zoxide (must be at end of file)
 # ========================================
@@ -201,8 +186,8 @@ eval "$(zoxide init zsh)"
 # pnpm
 export PNPM_HOME="/Users/ian.currie/Library/pnpm"
 case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
+*":$PNPM_HOME:"*) ;;
+*) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
 

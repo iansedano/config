@@ -57,6 +57,8 @@ formulae=(
   metalbear-co/mirrord/mirrod # Kubernetes development proxy
   rancher-cli                 # Rancher CLI - Docker replacement
   flyway                      # Database migration tool
+  watch                       # Run command at intervals
+  tldr                        # alternative man pages
 
   pyenv                       # Python version manager
   openssl                     # SSL
@@ -91,7 +93,7 @@ casks=(
   scroll-reverser       # Independent mouse settings for mouse and trackpad
   kitty                 # Terminal emulator
   karabiner-elements    # Keyboard remapper
-  docker
+  # docker
   maccy                 # Clipboard manager
   shottr                # Screenshot tool
   intellij-idea         # Java IDE
