@@ -12,6 +12,8 @@
 # Example:
 #   ./create_symlinks.sh /path/to/source-config --dry-run
 
+ACTUAL_CONFIG_DIR="$HOME/.config"
+
 SOURCE_DIR="$1"
 if [ -z "$SOURCE_DIR" ]; then
   echo "No source directory specified, exiting."
@@ -28,7 +30,6 @@ if [ "$2" == "--dry-run" ]; then
   echo "Running in dry run mode. No changes will be made."
 fi
 
-ACTUAL_CONFIG_DIR="$HOME/.config"
 if [ ! -d "$ACTUAL_CONFIG_DIR" ]; then
   echo "$ACTUAL_CONFIG_DIR does not exist, creating it."
   [ "$DRY_RUN" = false ] && mkdir -p "$ACTUAL_CONFIG_DIR"
