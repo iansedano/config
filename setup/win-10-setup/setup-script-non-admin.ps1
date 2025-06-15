@@ -24,6 +24,7 @@ scoop install fzf
 scoop install gh
 scoop install scoop-search
 scoop install clipboard
+scoop install ripgrep
 
 # Fonts
 scoop install CascadiaCode-NF

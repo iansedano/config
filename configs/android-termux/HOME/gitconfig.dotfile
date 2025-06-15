@@ -1,0 +1,23 @@
+[user]
+	email = iansedano@gmail.com
+	name = Ian Currie
+
+[alias]
+	pushall = "!f() { git add -A && git commit -m \"$@\" && git push; }; f"
+	commitall = "!f() { git add -A && git commit -m \"$@\"; }; f"
+	amendpush = "!f() { git add -A && git commit --amend --no-edit && git push -f; }; f"
+	amm = commit --amend --no-edit
+	ll = log --graph --decorate --oneline
+	last = log -1
+	recent = log -5 --oneline --graph
+	s = status
+[safe]
+	directory = *
+[core]
+	autocrlf = input
+[init]
+	defaultBranch = main
+[core]
+  editor = "$(command -v nvim || echo 'vi')"
+[push]
+  autoSetupRemote = true

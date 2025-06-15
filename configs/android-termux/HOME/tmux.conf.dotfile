@@ -1,0 +1,30 @@
+# Tmux config
+# Author @iansedano
+#
+# With help from:
+# https://gist.github.com/tsl0922/d79fc1f8097dde660b34
+
+
+# Leader
+set-option -g prefix C-Space
+unbind C-b # Unbind the default leader (Control-b)
+
+set-window-option -g mode-keys vi
+
+# Easy config reload
+bind-key R source-file ~/.tmux.conf \; display-message "tmux.conf reloaded."
+
+# use vim-like keys for splits and windows
+bind-key v split-window -h -c '#{pane_current_path}'
+bind-key s split-window -v -c '#{pane_current_path}'
+bind-key h select-pane -L
+bind-key j select-pane -D
+bind-key k select-pane -U
+bind-key l select-pane -R
+
+# mouse behavior
+setw -g mouse on
+
+# Setup 'v' to begin selection as in Vim
+bind-key -T copy-mode-vi v send -X begin-selection
+bind-key -T copy-mode-vi y send -X copy-pipe-and-cancel "reattach-to-user-namespace pbcopy"
