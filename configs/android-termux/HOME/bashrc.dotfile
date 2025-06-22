@@ -74,12 +74,10 @@ fi
 
 light() {
   export BAT_THEME="gruvbox-light"
-  alacritty msg config "$(cat ~/.config/alacritty/light.toml)"
 }
 
 dark() {
   export BAT_THEME=""
-  alacritty msg config "$(cat ~/.config/alacritty/alacritty.toml)"
 }
 
 # ========================================
@@ -101,8 +99,6 @@ alias la='eza -lah'
 
 alias copy="xclip -selection clipboard"
 alias paste="xclip -selection clipboard -o"
-
-alias feh="feh --geometry 1680x1390 --scale-down --edit"
 
 alias ..="cd .."
 
@@ -158,39 +154,13 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
 
 # ========================================
-# Python
-# ========================================
-
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
-  eval "$(pyenv virtualenv-init -)"
-fi
-
-alias mkvenv="mkdir venv; echo 'venv' > .dbignore; dbignore; python -m venv venv; source venv/bin/activate"
-alias venv="source venv/bin/activate"
-
-# ========================================
 # Java
 # ========================================
-
-idea() {
-  if [[ -z $1 ]]; then
-    runbg idea.sh $1
-  else
-    runbg idea.sh .
-  fi
-}
-complete -c idea
-
-[ -s "/home/cuse/.jabba/jabba.sh" ] && source "/home/cuse/.jabba/jabba.sh"
 
 # ========================================
 # Rust
 # ========================================
 
-# Check if rustup is installed
 if [ -x "$(command -v rustup)" ]; then
   . "$HOME/.cargo/env"
 fi
