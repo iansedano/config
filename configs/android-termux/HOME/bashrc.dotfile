@@ -1,10 +1,6 @@
 echo "running .bashrc"
 
-DROPBOX="$HOME/Dropbox"
-DESKTOP="$DROPBOX/Desktop"
 DEV="$HOME/dev"
-DROPBOX_DEV="$DROPBOX/dev"
-NOTEBOOK="$DROPBOX/notebook"
 CONFIG="$DEV/iansedano/config"
 POSH_CONFIG="$CONFIG/configs/common/posh.omp.json"
 SNIPPETS="$DEV/iansedano/wtf/snippets"
@@ -63,12 +59,6 @@ bind '"\e[Z": menu-complete-backward'
 bind "set show-all-if-ambiguous off"
 
 eval "$(oh-my-posh init bash --config "$POSH_CONFIG")"
-
-# ========================================
-# direnv
-# ========================================
-
-eval "$(direnv hook bash)"
 
 # ========================================
 # fzf
