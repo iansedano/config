@@ -65,7 +65,7 @@ eval "$(oh-my-posh init bash --config "$POSH_CONFIG")"
 # ========================================
 
 if [ -x "$(command -v fzf)" ]; then
-  source /usr/share/fzf/shell/key-bindings.bash
+  source /data/data/com.termux/files/usr/share/fzf
 fi
 
 # ========================================
