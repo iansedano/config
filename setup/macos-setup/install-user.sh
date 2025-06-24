@@ -71,6 +71,8 @@ formulae=(
   nvm                         # Node version manager
   presenterm                  # Terminal presentation tool
   pnpm                        # Node package manager
+  duti                        # Set default applications for file types
+  kafka                       # Apache Kafka CLI tools
 )
 
 casks=(
