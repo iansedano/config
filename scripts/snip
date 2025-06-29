@@ -3,6 +3,7 @@
 import argparse
 import os
 import shlex
+from datetime import datetime
 from pathlib import Path
 from subprocess import run
 
@@ -50,7 +51,8 @@ def list_snips():
 
 
 def touch(name):
-    snippet_path = get_snippet_dir() / f"{name}.md"
+    snippet_path = get_snippet_dir() / f"{datetime.today().strftime("%Y%m")}-{name}.md"
+
     run(editor_command(snippet_path))
 
 

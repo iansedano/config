@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+
+theme=$(defaults read -g AppleInterfaceStyle 2>/dev/null)
+
+if [[ "$theme" == "Dark" ]]; then
+  echo "dark"
+else
+  echo "light"
+fi
