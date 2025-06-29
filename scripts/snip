@@ -1,0 +1,114 @@
+#!/usr/bin/env python
+
+import argparse
+import os
+import shlex
+from pathlib import Path
+from subprocess import run
+
+SNIPPET_DIR_ENV_VAR = "SNIPPET_DIR"
+
+_snippet_dir = None
+
+
+def cli():
+    parser = argparse.ArgumentParser(description="A CLI tool for managing snippets.")
+    subparsers = parser.add_subparsers(dest="command")
+
+    touch_parser = subparsers.add_parser("touch", help="Create a snippet")
+    touch_parser.add_argument("name", type=str, help="Name of the snippet")
+
+    list_parser = subparsers.add_parser("list", help="List all snippets")
+
+    grep_parser = subparsers.add_parser("grep", help="Find snippets")
+    grep_parser.add_argument("query", type=str, help="Query to search for snippets")
+
+    find_parser = subparsers.add_parser("find", help="Find snippets by name")
+
+    args = parser.parse_args()
+
+    if args.command == "touch":
+        if not args.name:
+            print("Please provide a name for the snippet.")
+            return
+        touch(args.name)
+    elif args.command == "find" or not args.command:
+        find()
+    elif args.command == "list":
+        list_snips()
+    elif args.command == "grep":
+        if not args.query:
+            print("Please provide a query to search for snippets.")
+            return
+        grep(args.query)
+    else:
+        parser.print_help()
+
+
+def list_snips():
+    run(list_command(get_snippet_dir()))
+
+
+def touch(name):
+    snippet_path = get_snippet_dir() / f"{name}.md"
+    run(editor_command(snippet_path))
+
+
+def grep(query):
+    if not query:
+        print("Please provide a query to search for snippets.")
+        return
+
+    run(grep_command(query))
+
+
+def find():
+    find_process = run(
+        find_command(get_snippet_dir()),
+        capture_output=True,
+        text=True,
+        check=True,
+    )
+    fzf_process = run(
+        fzf_command(),
+        input=find_process.stdout,
+        text=True,
+    )
+
+
+def get_snippet_dir():
+    global _snippet_dir
+    if _snippet_dir:
+        return _snippet_dir
+    snippet_env_var = os.getenv(SNIPPET_DIR_ENV_VAR)
+    if not snippet_env_var:
+        raise EnvironmentError("SNIPPET_DIR environment variable is not set.")
+    snippet_dir = Path(snippet_env_var).resolve()
+    if not snippet_dir.is_dir():
+        raise NotADirectoryError(f"{snippet_dir} is not a valid directory.")
+    _snippet_dir = snippet_dir
+    return snippet_dir
+
+
+def find_command(path):
+    return shlex.split(f"find {path}")
+
+
+def fzf_command():
+    return shlex.split("rgf")
+
+
+def list_command(path):
+    return shlex.split(f"eza -ha {path}")
+
+
+def editor_command(path):
+    return shlex.split(f"nvim {path}")
+
+
+def grep_command(query):
+    return shlex.split(f"rg {query} {get_snippet_dir()} -C 5")
+
+
+if __name__ == "__main__":
+    cli()

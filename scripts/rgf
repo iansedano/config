@@ -1,0 +1,33 @@
+#!/usr/bin/env sh
+
+# If stdin is a pipe (e.g., from `find ... |`), read the file list from it.
+# Otherwise, files_to_search will be empty.
+if [ ! -t 0 ]; then
+  # 'cat' will read all of stdin and the command substitution '$(...)'
+  # will store it in the variable.
+  files_to_search=$(cat)
+fi
+
+# The '|| :' is crucial. It prevents fzf from exiting if rg returns no matches
+# (which it does with a non-zero exit code).
+# We pass $files_to_search at the end. If it's empty, rg defaults to the CWD.
+# If it contains file paths, rg will search only those files.
+RELOAD="reload: rg --column --color=always --smart-case {q} $files_to_search || :"
+
+# This part remains the same. It correctly opens the selected files
+# from the rg output in Neovim.
+OPENER='if [[ $FZF_SELECT_COUNT -eq 0 ]]; then
+          echo {1}      # No selection. Open the current line in Vim.
+        else
+          nvim +cw -q {+f}  # Build quickfix list for the selected items.
+        fi'
+
+fzf --disabled --ansi --multi \
+  --bind "start:$RELOAD" --bind "change:$RELOAD" \
+  --bind "enter:become:$OPENER" \
+  --bind "ctrl-o:execute:$OPENER" \
+  --bind 'alt-a:select-all,alt-d:deselect-all,ctrl-/:toggle-preview' \
+  --delimiter : \
+  --preview 'bat --style=full --color=always --highlight-line {2} {1}' \
+  --preview-window '~4,+{2}+4/3,<80(up)' \
+  --query "$*"

@@ -112,7 +112,7 @@
   "transient_prompt": {
     "background": "transparent",
     "foreground": "#4b4b4b",
-    "template": "{{ .PWD }} - {{now | date \"15:04:05\"}} \n❯ "
+    "template": "\n{{ .PWD }} - {{now | date \"15:04:05\"}} \n❯ "
   },
   
   "version": 3,

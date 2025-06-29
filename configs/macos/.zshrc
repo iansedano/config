@@ -25,6 +25,8 @@ export PATH="$HOME/bin:$PATH"
 export PATH="$CONFIG/scripts:$PATH"
 export PATH="$DEV/iansedano/billy/scripts:$PATH"
 
+export SNIPPET_DIR="$SNIPPETS"
+
 export VISUAL=nvim
 export EDITOR=nvim
 
@@ -62,6 +64,19 @@ eval "$(direnv hook zsh)"
 if command -v fzf >/dev/null; then
   source <(fzf --zsh)
 fi
+
+# ========================================
+# Light and Dark Mode
+# ========================================
+
+light() {
+  export BAT_THEME="gruvbox-light"
+}
+
+dark() {
+  export BAT_THEME=""
+}
+cd ..
 
 # ========================================
 # Shortcuts
@@ -106,12 +121,12 @@ clear() {
 # Notes & Snippets
 # ========================================
 
-alias snips="cd $SNIPPETS"
-snip() {
-  read -r "name?Enter snippet name: "
-  nvim "$SNIPPETS/$(date '+%Y%m')-${name}.md"
-}
-alias snippets="ls $SNIPPETS"
+# alias snips="cd $SNIPPETS"
+# snip() {
+#  read -r "name?Enter snippet name: "
+#  nvim "$SNIPPETS/$(date '+%Y%m')-${name}.md"
+#}
+#alias snippets="ls $SNIPPETS"
 
 note() {
   if [[ -z $1 ]]; then
