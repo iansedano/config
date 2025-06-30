@@ -110,8 +110,8 @@
   ],
   
   "transient_prompt": {
-    "background": "transparent",
-    "foreground": "#4b4b4b",
+    "background": "#3a3b3d",
+    "foreground": "#83858a",
     "template": "\n{{ .PWD }} - {{now | date \"15:04:05\"}} \n❯ "
   },
   

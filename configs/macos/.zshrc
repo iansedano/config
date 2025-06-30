@@ -12,6 +12,7 @@ SNIPPETS="$WTF/snippets"
 SCRIPTS="$CONFIG/scripts"
 DOT_CONFIG="$HOME/.config"
 IAN_CONFIG="$DOT_CONFIG/iansedano"
+GIT_JOURNAL="$DEV/iansedano/git-journal"
 
 source "$IAN_CONFIG/import_script.sh"
 source "$DEV/iansedano/billy/scripts/bynderrc"
@@ -76,7 +77,6 @@ light() {
 dark() {
   export BAT_THEME=""
 }
-cd ..
 
 # ========================================
 # Shortcuts
@@ -95,6 +95,9 @@ alias wtf="cd $WTF"
 
 alias ls='eza'
 alias la='eza -lah --git'
+
+alias mc='mc --nosubshell --nocolor'
+alias gemma='ollama run gemma3:4b'
 
 if [[ $(uname) == 'Darwin' ]]; then
   alias copy="pbcopy"
@@ -144,7 +147,7 @@ todo() {
   fi
 }
 
-alias scratch="nvim $NOTEBOOK/SCRATCH.md"
+alias scratch="nvim $GIT_JOURNAL/SCRATCH.md"
 
 mem() {
   nvim "$NOTEBOOK/mem.md"
