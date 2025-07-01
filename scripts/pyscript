@@ -23,7 +23,7 @@ def boilerplate(script_name):
         import argparse
 
         def main():
-            parser = argparse.ArgumentParser(description="A brief description of your script.")
+            parser = argparse.ArgumentParser(description="")
             # parser.add_argument("--example", type=str, default="world")
 
             args = parser.parse_args()
