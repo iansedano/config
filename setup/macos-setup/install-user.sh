@@ -73,6 +73,7 @@ formulae=(
   pnpm                        # Node package manager
   duti                        # Set default applications for file types
   kafka                       # Apache Kafka CLI tools
+  gpg                         # GNU Privacy Guard
 )
 
 casks=(
