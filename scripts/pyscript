@@ -1,0 +1,83 @@
+#!/usr/bin/env -S uv run --script
+
+# /// script
+# requires-python = ">=3.11"
+# dependencies = []
+# ///
+
+import argparse
+from pathlib import Path
+from textwrap import dedent
+
+
+def boilerplate(script_name):
+    return dedent(
+        f"""\
+        #!/usr/bin/env -S uv run --script
+
+        # /// script
+        # requires-python = ">=3.11"
+        # dependencies = []
+        # ///
+
+        import argparse
+
+        def main():
+            parser = argparse.ArgumentParser(description="A brief description of your script.")
+            # parser.add_argument("--example", type=str, default="world")
+
+            args = parser.parse_args()
+
+            print(f"Hello from {script_name}!")
+
+        if __name__ == "__main__":
+            main()
+        """
+    )
+
+
+def create_pyscript_file(path: Path):
+    """
+    Creates a new Python script file with pyscript metadata,
+    uv run --script shebang, and a basic argparse setup.
+
+    Args:
+        script_name (str): The name of the script to create (without .py extension).
+    """
+
+    file = Path(path)
+
+    if file.exists():
+        response = (
+            input(f"File '{path}' already exists. Overwrite? (y/N): ").strip().lower()
+        )
+        if response != "y":
+            print("Operation cancelled.")
+            return
+
+    try:
+        file.parent.mkdir(parents=True, exist_ok=True)
+        file.touch(exist_ok=True)
+        print(f"Creating '{path}' with pyscript boilerplate...")
+        file.write_text(boilerplate(script_name))
+        print(f"Created '{path}' with pyscript boilerplate.")
+        Path(path).chmod(0o755)  # rwxr-xr-x
+        print(f"Made '{path}' executable.")
+    except IOError as e:
+        print(f"Error creating file '{path}': {e}")
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}")
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(
+        description="Generate a new Python script with pyscript metadata and argparse setup."
+    )
+    parser.add_argument(
+        "script_name",
+        type=Path,
+        help="The name of the new Python script (without .py extension).",
+    )
+    args = parser.parse_args()
+
+    create_pyscript_file(args.script_name)
