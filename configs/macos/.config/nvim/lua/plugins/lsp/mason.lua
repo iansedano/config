@@ -34,6 +34,7 @@ return {
       ensure_installed = {
         "lua_ls",
         "pyright",
+        "jdtls",
       },
       automatic_installation = true,
       handlers = {
@@ -110,6 +111,82 @@ return {
                 analysis = {
                   useLibraryCodeForTypes = true,
                   typeCheckingMode = "basic",
+                },
+              },
+            },
+          })
+        end,
+        ["jdtls"] = function()
+          -- configure java language server
+          local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
+          local workspace_dir = vim.fn.stdpath('data') .. '/site/java/workspace-root/' .. project_name
+          os.execute("mkdir -p " .. workspace_dir)
+          
+          lspconfig["jdtls"].setup({
+            capabilities = require("cmp_nvim_lsp").default_capabilities(),
+            cmd = {
+              'jdtls',
+              '-data', workspace_dir,
+            },
+            root_dir = lspconfig.util.root_pattern('.git', 'mvnw', 'gradlew', 'pom.xml', 'build.gradle'),
+            settings = {
+              
+              java = {
+                import = {
+                  gradle = {
+                    enabled = true,
+                  },
+                },
+                eclipse = {
+                  downloadSources = true,
+                },
+                configuration = {
+                  updateBuildConfiguration = "interactive",
+                },
+                maven = {
+                  downloadSources = true,
+                },
+                implementationsCodeLens = {
+                  enabled = true,
+                },
+                referencesCodeLens = {
+                  enabled = true,
+                },
+                references = {
+                  includeDecompiledSources = true,
+                },
+                format = {
+                  enabled = true,
+                },
+              },
+              signatureHelp = { enabled = true },
+              completion = {
+                favoriteStaticMembers = {
+                  "org.hamcrest.MatcherAssert.assertThat",
+                  "org.hamcrest.Matchers.*",
+                  "org.hamcrest.CoreMatchers.*",
+                  "org.junit.jupiter.api.Assertions.*",
+                  "java.util.Objects.requireNonNull",
+                  "java.util.Objects.requireNonNullElse",
+                  "org.mockito.Mockito.*",
+                },
+              },
+              contentProvider = { preferred = 'fernflower' },
+              extendedClientCapabilities = {
+                progressReportsSupported = true,
+                classFileContentsSupport = true,
+                generateToStringPromptSupported = true,
+                hashCodeEqualsPromptSupported = true,
+                advancedExtractRefactoringSupported = true,
+                advancedOrganizeImportsSupported = true,
+                generateConstructorsPromptSupported = true,
+                generateDelegateMethodsPromptSupported = true,
+                moveRefactoringSupported = true,
+              },
+              sources = {
+                organizeImports = {
+                  starThreshold = 9999,
+                  staticStarThreshold = 9999,
                 },
               },
             },
