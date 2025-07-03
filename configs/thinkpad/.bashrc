@@ -171,11 +171,11 @@ export NVM_DIR="$HOME/.nvm"
 # Python
 # ========================================
 
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
-fi
+# export PYENV_ROOT="$HOME/.pyenv"
+# export PATH="$PYENV_ROOT/bin:$PATH"
+# if command -v pyenv 1>/dev/null 2>&1; then
+#   eval "$(pyenv init -)"
+# fi
 
 alias mkvenv="mkdir venv; echo 'venv' > .dbignore; dbignore; python -m venv venv; source venv/bin/activate"
 alias venv="source venv/bin/activate"

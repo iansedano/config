@@ -120,6 +120,11 @@ clear() {
   printf '\033[2J\033[3J\033[1;1H'
 }
 
+uv-activate-script-venv() {
+  path=$(uv-get-script-activate "$1")
+  source "$path"
+}
+
 # ========================================
 # Notes & Snippets
 # ========================================
@@ -168,12 +173,6 @@ export NVM_DIR="$HOME/.nvm"
 # ========================================
 # Python
 # ========================================
-
-export PYENV_ROOT="$HOME/.pyenv"
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-if command -v pyenv >/dev/null; then
-  eval "$(pyenv init -)"
-fi
 
 alias venv="source venv/bin/activate"
 

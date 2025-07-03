@@ -84,10 +84,10 @@ scoop bucket add supabase https://github.com/supabase/scoop-bucket.git
 scoop install supabase
 
 # Python
-scoop install pyenv
+# scoop install pyenv
 
-pyenv update
-pyenv install --quiet 3.11.1
+# pyenv update
+# pyenv install --quiet 3.11.1
 
 # Node
 scoop install nvm

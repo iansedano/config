@@ -76,7 +76,7 @@ packages=(
   gh                  # Github CLI
   ImageMagick         # Image manipulation
   libjpeg-turbo-utils # JPEG manipulation
-  pipx                # Python installer for standalone execs
+  # pipx              # Python installer for standalone execs (use uv)
   mycli               # MySQL CLI
   awscli2             # AWS CLI
 

@@ -16,13 +16,13 @@ fi
 # z
 # git clone git@github.com:rupa/z.git ~/opt/z
 
-# pyenv
-curl https://pyenv.run | bash # may need restart after this...or sourcing .bashrc
+# # pyenv (Use uv instead)
+# curl https://pyenv.run | bash # may need restart after this...or sourcing .bashrc
 
-pyenv update
-pyenv rehash
-LATEST_PYTHON=$(pyenv install --list | grep -E "^\s*[0-9]+\.[0-9]+\.[0-9]+$" | tail -1)
-pyenv install $LATEST_PYTHON
+# pyenv update
+# pyenv rehash
+# LATEST_PYTHON=$(pyenv install --list | grep -E "^\s*[0-9]+\.[0-9]+\.[0-9]+$" | tail -1)
+# pyenv install $LATEST_PYTHON
 
 # Jabba
 curl -sL https://github.com/Jabba-Team/jabba/raw/main/install.sh | bash && . ~/.jabba/jabba.sh

@@ -9,41 +9,41 @@ formulae=(
   # ==========
   # CLI Tools
   # ==========
-  bat                         # cat replacement
-  curl                        # download
-  lazygit                     # git tui
-  dos2unix                    # Convert line endings
-  entr                        # Run command on file change
-  eza                         # ls replacement (exa no longer)
-  fd                          # find replacement
-  fzf                         # fuzzy finder
-  git                         # version control
-  diff-so-fancy               # nicer diff view
-  ripgrep                     # grep replacement
-  openssh                     # ssh
-  tmux                        # terminal multiplexer
-  wget                        # download
-  mc                          # Midnight commander
-  neovim                      # Text editor
-  nethogs                     # Bandwidth monitor
-  direnv                      # Environment manager
-  zoxide                      # z autojump replacement
-  qpdf                        # PDF manipulation
-  gh                          # Github CLI
-  imagemagick                 # Image manipulation
-  libjpeg-turbo               # JPEG manipulation
-  pipx                        # Python installer for standalone execs
-  oh-my-posh                  # Prompt theme engine
-  ansible                     # Install automation
-  saulpw/vs/visidata          # cli spreadsheet
-  gnumeric                    # Lightweight, fast spreadsheet app
-  pipx                        # Python installer for standalone execs
-  xonsh                       # Python shell
-  ruff                        # Python linter and formatter
-  tre-command                 # Modern tree command
-  saml2aws                    # AWS SAML CLI
-  awscli                      # AWS CLI
-  just                        # Justfile runner (like Makefile)
+  bat           # cat replacement
+  curl          # download
+  lazygit       # git tui
+  dos2unix      # Convert line endings
+  entr          # Run command on file change
+  eza           # ls replacement (exa no longer)
+  fd            # find replacement
+  fzf           # fuzzy finder
+  git           # version control
+  diff-so-fancy # nicer diff view
+  ripgrep       # grep replacement
+  openssh       # ssh
+  tmux          # terminal multiplexer
+  wget          # download
+  mc            # Midnight commander
+  neovim        # Text editor
+  nethogs       # Bandwidth monitor
+  direnv        # Environment manager
+  zoxide        # z autojump replacement
+  qpdf          # PDF manipulation
+  gh            # Github CLI
+  imagemagick   # Image manipulation
+  libjpeg-turbo # JPEG manipulation
+  # pipx                      # Python installer for standalone execs (use uv)
+  oh-my-posh         # Prompt theme engine
+  ansible            # Install automation
+  saulpw/vs/visidata # cli spreadsheet
+  gnumeric           # Lightweight, fast spreadsheet app
+  pipx               # Python installer for standalone execs
+  xonsh              # Python shell
+  ruff               # Python linter and formatter
+  tre-command        # Modern tree command
+  saml2aws           # AWS SAML CLI
+  awscli             # AWS CLI
+  just               # Justfile runner (like Makefile)
   # autoenv                   # Directory based environment activation, not used because interferes with ZOxide
   docker
   docker-compose
@@ -60,20 +60,22 @@ formulae=(
   watch                       # Run command at intervals
   tldr                        # alternative man pages
 
-  pyenv                       # Python version manager
-  openssl                     # SSL
-  sqlite3                     # SQLite
-  xz                          # Compression
-  zlib                        # Compression
-  tcl-tk@8                    # Tcl/Tk GUI Toolkit
+  # pyenv                     # Python version manager (using uv now)
+  openssl  # SSL
+  sqlite3  # SQLite
+  xz       # Compression
+  zlib     # Compression
+  tcl-tk@8 # Tcl/Tk GUI Toolkit
 
-  jabba                       # Java version manager
-  nvm                         # Node version manager
-  presenterm                  # Terminal presentation tool
-  pnpm                        # Node package manager
-  duti                        # Set default applications for file types
-  kafka                       # Apache Kafka CLI tools
-  gpg                         # GNU Privacy Guard
+  jabba      # Java version manager
+  nvm        # Node version manager
+  presenterm # Terminal presentation tool
+  pnpm       # Node package manager
+  duti       # Set default applications for file types
+  kafka      # Apache Kafka CLI tools
+  gpg        # GNU Privacy Guard
+  uv         # Python package installer
+  llm        # LLM CLI tool
 )
 
 casks=(
@@ -97,13 +99,13 @@ casks=(
   kitty                 # Terminal emulator
   karabiner-elements    # Keyboard remapper
   # docker
-  maccy                 # Clipboard manager
-  shottr                # Screenshot tool
-  intellij-idea         # Java IDE
-  rancher               # Docker replacement
-  postman               # API testing
-  jordanbaird-ice       # Menubar customizer
-  tableplus             # Database GUI
+  maccy           # Clipboard manager
+  shottr          # Screenshot tool
+  intellij-idea   # Java IDE
+  rancher         # Docker replacement
+  postman         # API testing
+  jordanbaird-ice # Menubar customizer
+  tableplus       # Database GUI
 )
 
 #  ripcord                 # Light and fast app for Discord and Slack
@@ -130,12 +132,12 @@ brew services start autoraise
 brew tap ankitpokhrel/jira-cli
 brew install jira-cli
 
-pyenv update
-pyenv rehash
-LATEST_PYTHON=$(pyenv install --list | grep -E "^\s*[0-9]+\.[0-9]+\.[0-9]+$" | tail -1)
-pyenv install $LATEST_PYTHON
+# pyenv update
+# pyenv rehash
+# LATEST_PYTHON=$(pyenv install --list | grep -E "^\s*[0-9]+\.[0-9]+\.[0-9]+$" | tail -1)
+# pyenv install $LATEST_PYTHON
 
-pipx install black
+# pipx install black
 
 # May need an exit and relog to work...
 mkdir "$HOME/.nvm"
@@ -144,10 +146,8 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_completion
 nvm install --lts
 
-
 # Need to test if these work from the same script
 #
 npm install -g git-removed-branches
 npm install -g @anthropic-ai/claude-code
 npm install -g @openai/codex
-
