@@ -121,8 +121,9 @@ clear() {
 }
 
 uv-activate-script-venv() {
-  path=$(uv-get-script-activate "$1")
-  source "$path"
+  script=$(uv python find --script "$1")
+  parent_dir=$(dirname "$script")
+  source "$parent_dir/activate"
 }
 
 # ========================================
