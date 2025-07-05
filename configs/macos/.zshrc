@@ -72,10 +72,12 @@ fi
 
 light() {
   export BAT_THEME="gruvbox-light"
+  osascript -e 'tell application "System Events" to tell appearance preferences to set dark mode to false'
 }
 
 dark() {
   export BAT_THEME=""
+  osascript -e 'tell application "System Events" to tell appearance preferences to set dark mode to true'
 }
 
 # ========================================
