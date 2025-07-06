@@ -106,6 +106,7 @@ casks=(
   postman         # API testing
   jordanbaird-ice # Menubar customizer
   tableplus       # Database GUI
+  veracrypt       # Disk encryption
 )
 
 #  ripcord                 # Light and fast app for Discord and Slack
