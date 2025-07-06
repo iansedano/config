@@ -53,6 +53,7 @@ setopt HIST_IGNORE_ALL_DUPS
 eval "$(oh-my-posh init zsh --config "$POSH_CONFIG")"
 
 bindkey -v
+bindkey '^?' backward-delete-char # Allow backspace over previous insert session
 
 # ========================================
 # direnv
