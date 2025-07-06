@@ -1,0 +1,76 @@
+#!/usr/bin/env -S uv run --script
+
+# /// script
+# requires-python = ">=3.11"
+# dependencies = [
+#     "plumbum"
+# ]
+# ///
+
+import argparse
+from pathlib import Path
+
+from plumbum import FG
+from plumbum.cmd import llm, pdftoppm, rm
+
+_temp_dir = Path("/tmp/pdf-transcribe")
+_prompt = """
+You are an expert document analyst. Your task is to meticulously transcribe the content of the provided image, which is a page from a PDF document.
+
+Follow these instructions carefully:
+1.  **Transcribe all text** on the page as accurately as possible. Preserve the original formatting, including paragraphs, headings, and lists, as best you can.
+2.  **Identify and describe non-text elements.** If there are images, charts, graphs, or other illustrations, do not try to reproduce them. Instead, insert a clear description in brackets. For example: `[Image: A bar chart showing quarterly sales growth.]` or `[Illustration: A diagram of a human cell.]`
+3.  **Flag unclear content.** If any text is blurry, illegible, or cut off, transcribe what you can and then insert a note in brackets. For example: `The quick brown fox [Text is blurry] over the lazy dog.`
+4.  **Note potential errors or omissions.** If you notice any apparent typographical errors, grammatical mistakes, or sections that seem incomplete, transcribe the text as-is but add a comment in brackets. For example: `The capitol of France is Paris. [Note: 'capitol' should likely be 'capital'.]`
+5.  **Structure your output clearly.** Use Markdown for formatting.
+"""
+
+
+def main():
+    parser = argparse.ArgumentParser(description="")
+    parser.add_argument("input", type=Path)
+
+    args = parser.parse_args()
+
+    if _temp_dir.exists():
+        rm["-r", str(_temp_dir)] & FG
+
+    _temp_dir.mkdir(parents=True, exist_ok=True)
+
+    transcribe_pdf(args.input)
+
+
+def transcribe_pdf(input_path):
+    page_images = split_pdf_to_images(input_path)
+    print("Page images:")
+    print(page_images)
+
+    transcription_files = [transcribe_image(page_image) for page_image in page_images]
+
+    print(concatenate_file_text(transcription_files))
+
+
+def split_pdf_to_images(input_path):
+    pdftoppm["-jpeg", str(input_path), _temp_dir / f"{input_path.stem}-image"] & FG
+    print("Split pdf into images")
+    return _temp_dir.glob("*.jpg")
+
+
+def transcribe_image(path_to_file):
+    output = llm["-m", "4o", "-a", f"{path_to_file}", _prompt]()
+    transcription_file = path_to_file.with_suffix(".transcription.md")
+    transcription_file.write_text(output)
+    print(f"transcribed {path_to_file}")
+    return transcription_file
+
+
+def concatenate_file_text(files):
+    text = ""
+    for file in files:
+        text += f"## {file.stem}\n\n"
+        text += file.read_text() + "\n\n"
+    return text
+
+
+if __name__ == "__main__":
+    main()
