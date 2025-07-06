@@ -1,0 +1,44 @@
+#!/usr/bin/env sh
+
+# Use echo to process the color codes
+echo "--- Zsh vi Mode Cheat Sheet ---"
+echo "Press 'Esc' to enter NORMAL mode. Press 'i' or 'a' to return to INSERT mode."
+
+echo "\n--- Mode Switching ---"
+echo " Esc : Enter NORMAL mode (for commands)"
+echo " i   : Enter INSERT mode at cursor"
+echo " a   : Enter INSERT mode after cursor"
+echo " I   : Enter INSERT mode at the beginning of the line"
+echo " A   : Enter INSERT mode at the end of the line"
+echo " o   : Add a new line below and enter INSERT mode"
+echo " O   : Add a new line above and enter INSERT mode"
+
+echo "\n--- Movement (in NORMAL mode) ---"
+echo " h   : Move left      l : Move right"
+echo " k   : Move up (history) j : Move down (history)"
+echo " w   : Move forward one word"
+echo " b   : Move backward one word"
+echo " 0   : Move to start of line"
+echo "    : Move to end of line"
+echo " ^   : Move to first non-whitespace character"
+
+echo "\n--- Editing (in NORMAL mode) ---"
+echo " x   : Delete character under cursor"
+echo " dw  : Delete word"
+echo " dd  : Delete (cut) the entire line"
+echo " D   : Delete (cut) from cursor to end of line"
+echo " cw  : Change word (delete and enter INSERT mode)"
+echo " cc  : Change line (delete and enter INSERT mode)"
+echo " C   : Change to end of line (delete and enter INSERT mode)"
+echo " p   : Paste after cursor"
+echo " P   : Paste before cursor"
+echo " u   : Undo"
+echo " . (dot): Repeat last editing command"
+
+echo "\n--- History Search (in NORMAL mode) ---"
+echo " /   : Search history backward (e.g., /ls)"
+echo " ?   : Search history forward"
+echo " n   : Repeat search in same direction"
+echo " N   : Repeat search in opposite direction"
+
+echo "\nor a complete, raw list, use: 'bindkey -M vicmd'"

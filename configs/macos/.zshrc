@@ -52,6 +52,8 @@ setopt HIST_IGNORE_ALL_DUPS
 
 eval "$(oh-my-posh init zsh --config "$POSH_CONFIG")"
 
+bindkey -v
+
 # ========================================
 # direnv
 # ========================================
