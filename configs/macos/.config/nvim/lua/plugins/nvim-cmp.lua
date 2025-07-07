@@ -19,8 +19,8 @@ return {
 				["<C-j>"] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Insert }),
 			},
 			sources = {
-				{ name = "nvim_lsp" },
-				{ name = "lazydev", group_index = 0 },
+				{ name = "nvim_lsp", group_index = 2 },
+				{ name = "lazydev", group_index = 2 },
 				{ name = "copilot", group_index = 2 },
 			},
 			window = {
