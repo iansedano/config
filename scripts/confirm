@@ -1,0 +1,24 @@
+#!/usr/bin/env sh
+
+# The script's first argument ($1) is used as the question.
+# If no argument is given, it defaults to "Are you sure?".
+question="${1:-Are you sure?}"
+
+while true; do
+    # The -p flag for a prompt is a bash extension and might not work in a strict
+    # sh interpreter. A more portable way is shown below.
+    printf "%s (y/n) " "$question"
+    read -r yn
+
+    case $yn in
+        # Match any string starting with 'Y' or 'y'
+        # 'return' is replaced with 'exit' to terminate the script.
+        [Yy]*) exit 0 ;;
+
+        # Match any string starting with 'N' or 'n'
+        [Nn]*) exit 1 ;;
+
+        # Handle any other input
+        *) echo "Please answer yes (y) or no (n)." ;;
+    esac
+done

@@ -150,15 +150,15 @@ note() {
   nvim "$NOTEBOOK/0-unprocessed/$1.md"
 }
 
-todo() {
-  if [[ -z $1 ]]; then
-    nvim "$NOTEBOOK/TODO.md"
-  else
-    nvim "$NOTEBOOK/TODO-$1.md"
-  fi
-}
 
-alias scratch="nvim $GIT_JOURNAL/SCRATCH.md"
+scratch() {
+  confirm "git pull?" && git -C $GIT_JOURNAL pull
+  nvim "$GIT_JOURNAL/Scratch.md"
+  confirm "git add and commit and push?" && \
+    git -C $GIT_JOURNAL add "$GIT_JOURNAL/Scratch.md" && \
+    git -C $GIT_JOURNAL commit -m "Update Scratch from mac" && \
+    git -C $GIT_JOURNAL push
+}
 
 mem() {
   nvim "$NOTEBOOK/mem.md"
