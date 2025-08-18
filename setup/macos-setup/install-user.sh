@@ -76,6 +76,12 @@ formulae=(
   gpg        # GNU Privacy Guard
   uv         # Python package installer
   llm        # LLM CLI tool
+  tenv     # Terminal environment manager
+  ansible-lint # Ansible linter
+  yamllint # YAML linter
+  packer # Hashicorp Packer for building images
+  kcat # Kafka CLI tool (formerly kafkacat)
+  protobuf # Protocol Buffers compiler
 )
 
 casks=(
@@ -107,6 +113,7 @@ casks=(
   jordanbaird-ice # Menubar customizer
   tableplus       # Database GUI
   veracrypt       # Disk encryption
+  kafkacat      # Kafka CLI tool (formerly kcat)
 )
 
 #  ripcord                 # Light and fast app for Discord and Slack
@@ -132,6 +139,9 @@ brew services start autoraise
 
 brew tap ankitpokhrel/jira-cli
 brew install jira-cli
+
+brew tap FelixKratz/formulae
+brew install borders
 
 # pyenv update
 # pyenv rehash

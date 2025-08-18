@@ -18,6 +18,22 @@ source "$IAN_CONFIG/import_script.sh"
 source "$DEV/iansedano/billy/scripts/bynderrc"
 
 # ========================================
+# History
+# ========================================
+
+HISTFILE=~/.zsh_history
+HISTSIZE=1000000000
+SAVEHIST=1000000000 
+setopt APPEND_HISTORY      
+setopt INC_APPEND_HISTORY  
+setopt SHARE_HISTORY       
+setopt HIST_EXPIRE_DUPS_FIRST 
+setopt HIST_IGNORE_DUPS    # Do not store duplicate commands
+setopt HIST_FIND_NO_DUPS   # Do not display duplicate lines when searching
+setopt HIST_SAVE_NO_DUPS   # Do not save duplicate lines to the history file
+setopt HIST_IGNORE_ALL_DUPS
+
+# ========================================
 # User specific environment
 # ========================================
 
@@ -48,7 +64,6 @@ zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 bindkey '^I' menu-complete
 bindkey '^[[Z' reverse-menu-complete
-setopt HIST_IGNORE_ALL_DUPS
 
 eval "$(oh-my-posh init zsh --config "$POSH_CONFIG")"
 
@@ -217,3 +232,4 @@ esac
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
 export PATH="/Users/ian.currie/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
+source $HOME/.tenv.completion.zsh
