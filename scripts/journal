@@ -1,0 +1,135 @@
+#!/usr/bin/env -S uv run --script
+
+# /// script
+# requires-python = ">=3.11"
+# dependencies = ["platformdirs"]
+# ///
+
+import subprocess
+import sys
+from datetime import datetime
+from pathlib import Path
+
+import tomllib
+from platformdirs import user_config_dir
+
+
+def get_config_path():
+    """Get the config file path, forcing ~/.config for unix-like systems"""
+    # Force ~/.config for all unix-like systems including macOS
+    config_dir = Path.home() / ".config" / "journal"
+    return config_dir / "config.toml"
+
+
+def create_default_config(config_path):
+    """Create a default config file with empty values"""
+    config_path.parent.mkdir(parents=True, exist_ok=True)
+    config_content = """[journal]
+folder = ""
+editor = ""
+"""
+    config_path.write_text(config_content)
+
+
+def write_config(config_path, folder, editor):
+    """Write config values to the TOML file"""
+    config_content = f"""[journal]
+folder = "{folder}"
+editor = "{editor}"
+"""
+    config_path.write_text(config_content)
+
+
+def load_config(config_path):
+    """Load config from TOML file"""
+    try:
+        with open(config_path, "rb") as f:
+            config = tomllib.load(f)
+        return config.get("journal", {})
+    except FileNotFoundError:
+        return {}
+    except tomllib.TOMLDecodeError as e:
+        print(f"Error: Invalid TOML format in config file: {e}", file=sys.stderr)
+        sys.exit(1)
+
+
+def prompt_user_config(config_path, journal_config):
+    """Prompt user for missing config values"""
+    folder = journal_config.get("folder", "").strip()
+    editor = journal_config.get("editor", "").strip()
+
+    config_updated = False
+
+    if not folder:
+        folder_input = input("Enter journal folder path: ").strip()
+        if not folder_input:
+            print("Error: Journal folder path is required", file=sys.stderr)
+            sys.exit(1)
+        folder = folder_input
+        config_updated = True
+
+    if not editor:
+        editor_input = input("Enter editor command (e.g., vim, code, nano): ").strip()
+        if not editor_input:
+            print("Error: Editor command is required", file=sys.stderr)
+            sys.exit(1)
+        editor = editor_input
+        config_updated = True
+
+    if config_updated:
+        write_config(config_path, folder, editor)
+        print(f"Config saved to: {config_path}")
+
+    return folder, editor
+
+
+def main():
+    # Get config file path
+    config_path = get_config_path()
+
+    # Create default config if it doesn't exist
+    if not config_path.exists():
+        create_default_config(config_path)
+        print(f"Created default config file: {config_path}")
+
+    # Load config
+    journal_config = load_config(config_path)
+
+    # Prompt for missing config values
+    folder, editor = prompt_user_config(config_path, journal_config)
+
+    # Generate current date in YYYYMM format
+    current_date = datetime.now()
+    date_string = current_date.strftime("%Y%m")
+
+    # Construct file path
+    journal_folder = Path(folder).expanduser().resolve()
+    journal_file = journal_folder / f"{date_string}.md"
+
+    try:
+        # Create journal directory if it doesn't exist
+        journal_folder.mkdir(parents=True, exist_ok=True)
+
+        # Create empty journal file if it doesn't exist
+        if not journal_file.exists():
+            journal_file.touch()
+            print(f"Created new journal file: {journal_file}")
+        else:
+            print(f"Opening existing journal file: {journal_file}")
+
+        # Launch editor with the journal file
+        subprocess.run([editor, str(journal_file)])
+
+    except FileNotFoundError:
+        print(f"Error: Editor '{editor}' not found", file=sys.stderr)
+        sys.exit(1)
+    except PermissionError:
+        print(f"Error: Permission denied accessing '{journal_folder}'", file=sys.stderr)
+        sys.exit(1)
+    except Exception as e:
+        print(f"Error: {e}", file=sys.stderr)
+        sys.exit(1)
+
+
+if __name__ == "__main__":
+    main()

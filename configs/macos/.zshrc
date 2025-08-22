@@ -179,10 +179,6 @@ mem() {
   nvim "$NOTEBOOK/mem.md"
 }
 
-journal() {
-  nvim "$NOTEBOOK/journal/$(date '+%Y%m%d').md"
-}
-
 # ========================================
 # JavaScript
 # ========================================
