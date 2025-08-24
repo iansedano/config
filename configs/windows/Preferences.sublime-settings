@@ -1,0 +1,26 @@
+{
+	"font_size": 13,
+	"save_on_focus_lost": true,
+	"hot_exit": "disabled",
+	"remember_workspace": false,
+	"open_files_in_new_window": "always",
+	"draw_indent_guides": true,
+	"indent_guide_options":
+	[
+		"draw_normal",
+		"draw_active"
+	],
+	"rulers":
+	[
+		80
+	],
+	"preview_on_click": true,
+	"word_wrap": "false",
+	"wrap_width": 80,
+	"wrap_width_style": "min",
+	"ignored_packages":
+	[
+		"Vintage",
+	],
+	"index_files": true,
+}
