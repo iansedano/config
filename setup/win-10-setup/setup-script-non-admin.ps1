@@ -47,6 +47,7 @@ scoop install windirstat
 scoop install extras/bulk-rename-utility
 scoop install syncthing
 scoop install color-cop
+scoop install gcc
 
 # Apps
 scoop install googlechrome
