@@ -37,46 +37,6 @@ function dev(){Set-Location "$Dev"}
 function notebook(){Set-Location "$Notebook"}
 function codesnip(){Set-Location $CodeSnipRepo}
 
-function spotless(){./gradlew spotlessApply}
-function frontend(){./gradlew buildFrontend}
-
-function sniplog {
-    $lastCommand = (Get-History)[-1].CommandLine
-    $date = Get-Date -Format "yyyyMMdd"
-    if (Test-Path $SnipLog) {
-        $logContent = Get-Content $SnipLog
-        $dateStampExists = $logContent -match "^$date"
-        $logEntry = "`n$date`n$lastCommand"
-        if ($dateStampExists) {
-            $logEntry = "`n$lastCommand"
-        }
-        Add-Content -Path $SnipLog -Value $logEntry
-    }
-    else {
-        echo "Can't find log file!"
-        return
-    }
-
-    subl $SnipLog
-}
-
-function pyvenv(){
-  python -m venv venv
-  venv\Scripts\activate
-
-}
-
-function pyautovenv{
-  Write-Output ".\venv\Scripts\activate" > .autoenv
-  Write-Output "deactivate" > .autoenv.leave
-}
-
-function dropboxvenv() {
-  mkdir venv
-  "y" | dbignore
-  pyvenv
-}
-
 function git-recurse ($command)
 {
 	Get-ChildItem -Recurse -Directory -Hidden -Filter .git `
