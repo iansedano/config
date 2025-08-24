@@ -7,6 +7,7 @@ scoop install git
 scoop bucket add nerd-fonts
 scoop bucket add extras
 scoop bucket add sysinternals
+scoop bucket add versions
 
 # CLI Tools
 scoop install less
@@ -59,6 +60,7 @@ scoop install fsresizer
 scoop install paint.net
 scoop install filezilla
 scoop install ripcord
+scoop install steam
 
 # Media
 scoop install deluge
@@ -71,7 +73,7 @@ scoop install inkscape
 scoop install scribus
 scoop install reaper
 scoop install freecad
-# scoop install avidemux # https://github.com/ScoopInstaller/Extras/issues/9689 so installing with choco for now
+scoop install avidemux # https://github.com/ScoopInstaller/Extras/issues/9689
 scoop install gink
 scoop install gimp
 
@@ -84,10 +86,7 @@ scoop bucket add supabase https://github.com/supabase/scoop-bucket.git
 scoop install supabase
 
 # Python
-# scoop install pyenv
-
-# pyenv update
-# pyenv install --quiet 3.11.1
+scoop install uv
 
 # Node
 scoop install nvm
@@ -100,10 +99,6 @@ Invoke-Expression (
 ).Content
 
 scoop install gradle
-scoop install maven
-
-scoop bucket add maciejwalkowiak https://github.com/maciejwalkowiak/scoop-just.git
-scoop install just
 
 
 # Editors

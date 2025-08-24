@@ -7,10 +7,8 @@ Invoke-WebRequest -useb community.chocolatey.org/install.ps1 | Invoke-Expression
 choco feature enable -n allowGlobalConfirmation
 
 Write-Output "Installing Chocolatey Packages"
-choco install avidemux
 choco install veracrypt
 choco install sizer
-choco install steam-client --ignore-checksums
 choco install pdfxchangeeditor --version 7.0.328.2 --package-parameters="/NoDesktopShortcuts /NoViewInBrowsers"
 choco pin add -n pdfxchangeeditor
 

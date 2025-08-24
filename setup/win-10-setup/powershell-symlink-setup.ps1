@@ -1,7 +1,7 @@
 # elevated PowerShell
 
-$REPOSITORY_NAME = "CodeSnips-Notes"
-$CONFIG_FOLDER_NAME = "configs"
+$REPOSITORY_NAME = "config"
+$CONFIG_FOLDER_NAME = "configs/windows"
 
 $repo_root = (get-item $PSScriptRoot).parent
 if (($repo_root -split '\\')[-1] -ne $REPOSITORY_NAME) {

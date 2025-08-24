@@ -3,10 +3,10 @@
 Do Windows Updates
 
 ```powershell
-PS> # to save content of a page to a file
-PS> iwr -useb "https://raw.githubusercontent.com/iansedano/CodeSnips-Notes/master/win-10-setup/setup-script-non-admin.ps1" | Add-Content test.txt
-PS> # to run content of an online script
-PS> iwr -useb "https://raw.githubusercontent.com/iansedano/CodeSnips-Notes/master/win-10-setup/setup-script-non-admin.ps1" | iex
+# to save content of a page to a file
+iwr -useb "https://raw.githubusercontent.com/iansedano/config/master/setup/win-10-setup/setup-script-non-admin.ps1" | Add-Content test.txt
+# to run content of an online script
+iwr -useb "https://raw.githubusercontent.com/iansedano/config/master/setup/win-10-setup/setup-script-non-admin.ps1" | iex
 ```
 
 ## Explorer Settings
@@ -18,14 +18,23 @@ Explorer > This PC > File > Change Folder and Search Options > View
 - Hide extensions for known file types
 
 ```powershell
-PS> gh auth login
-PS> gh repo clone CodeSnips-Notes
-PS> $PROFILE
-PS> $RegistryPath = "HKCU:\Control Panel\Desktop"
-PS> $Name = "ActiveWndTrkTimeout"
-PS> $Val = "1000"
-PS> New-ItemProperty -Path $RegistryPath -Name $Name -Value $Val -PropertyType DWORD -Force
+gh auth login
+cd C:/
+mkdir dev
+cd dev
+mkdir iansedano
+cd iansedano
+gh repo clone config
+gh repo clone wtf
+gh repo clone git-journal
+$PROFILE
+$RegistryPath = "HKCU:\Control Panel\Desktop"
+$Name = "ActiveWndTrkTimeout"
+$Val = "1000"
+New-ItemProperty -Path $RegistryPath -Name $Name -Value $Val -PropertyType DWORD -Force
 ```
+
+- From config run setup-script.ps1 and then setup-script-2.ps1, then symlink setup.
 
 ## MySQL
 
@@ -41,11 +50,14 @@ or
 net start mysql
 ```
 
+```powershell
+mysql.exe -u root -p
 ```
-PS> mysql.exe -u root -p
-mysql> ALTER USER 'root'@'localhost' IDENTIFIED BY 'password';
-mysql> FLUSH PRIVILEGES;
-mysql> EXIT;
+
+```sql
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'password';
+FLUSH PRIVILEGES;
+EXIT;
 ```
 
 ## Neovim
@@ -56,14 +68,6 @@ sudo new-item -ItemType SymbolicLink `
 -Target "C:\dev\CodeSnips-Notes\configs\nvim-init.vim"
 ```
 
-Then from within neovim:
-
-```
-:PlugInstall
-```
-
-
 ## Syncthing
 
 Set it up!
-Check out how to create tasks with task scheduler programatically...
