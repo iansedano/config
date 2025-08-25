@@ -1,6 +1,6 @@
 $ProfileTarget = get-item $PROFILE | Select-Object -ExpandProperty target
 $ConfigFolder = (get-item $ProfileTarget).Directory
-$CodeSnipRepo = $ConfigFolder.Parent
+$ConfigRepo = $ConfigFolder.Parent.Parent
 
 $DropboxPath = Get-Content "$ENV:LOCALAPPDATA\Dropbox\info.json" -ErrorAction Stop |
     ConvertFrom-Json |
@@ -13,6 +13,8 @@ $Dev = "C:\dev"
 $DropDev = "$DropboxPath\dev"
 
 & $Env:USERPROFILE\env.ps1
+
+$env:PATH = (Resolve-Path "$ConfigRepo/scripts").Path + ";" + $env:PATH
 
 oh-my-posh init pwsh --config "$($ConfigFolder.FullName)/posh.omp.json" | Invoke-Expression
 

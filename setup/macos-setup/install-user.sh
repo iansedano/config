@@ -37,7 +37,6 @@ formulae=(
   ansible            # Install automation
   saulpw/vs/visidata # cli spreadsheet
   gnumeric           # Lightweight, fast spreadsheet app
-  pipx               # Python installer for standalone execs
   xonsh              # Python shell
   ruff               # Python linter and formatter
   tre-command        # Modern tree command
