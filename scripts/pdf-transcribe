@@ -8,6 +8,8 @@
 # ///
 
 import argparse
+import glob
+import sys
 from pathlib import Path
 
 from plumbum import FG
@@ -15,10 +17,10 @@ from plumbum.cmd import llm, pdftoppm, rm
 
 _temp_dir = Path("/tmp/pdf-transcribe")
 _prompt = """
-You are an expert document analyst. Your task is to meticulously transcribe the content of the provided image, which is a page from a PDF document.
+You are an expert document analyst. Your task is to meticulously transcribe the content of the provided image, which may be from a PDF document or a standalone image file.
 
 Follow these instructions carefully:
-1.  **Transcribe all text** on the page as accurately as possible. Preserve the original formatting, including paragraphs, headings, and lists, as best you can.
+1.  **Transcribe all text** in the image as accurately as possible. Preserve the original formatting, including paragraphs, headings, and lists, as best you can.
 2.  **Identify and describe non-text elements.** If there are images, charts, graphs, or other illustrations, do not try to reproduce them. Instead, insert a clear description in brackets. For example: `[Image: A bar chart showing quarterly sales growth.]` or `[Illustration: A diagram of a human cell.]`
 3.  **Flag unclear content.** If any text is blurry, illegible, or cut off, transcribe what you can and then insert a note in brackets. For example: `The quick brown fox [Text is blurry] over the lazy dog.`
 4.  **Note potential errors or omissions.** If you notice any apparent typographical errors, grammatical mistakes, or sections that seem incomplete, transcribe the text as-is but add a comment in brackets. For example: `The capitol of France is Paris. [Note: 'capitol' should likely be 'capital'.]`
@@ -27,8 +29,14 @@ Follow these instructions carefully:
 
 
 def main():
-    parser = argparse.ArgumentParser(description="")
-    parser.add_argument("input", type=Path)
+    parser = argparse.ArgumentParser(
+        description="Transcribe PDFs and images using AI. Supports multiple inputs, glob patterns, and mixed file types."
+    )
+    parser.add_argument(
+        "inputs",
+        nargs="+",
+        help="Input files (PDFs, images) or glob patterns (e.g., *.pdf *.jpg)",
+    )
 
     args = parser.parse_args()
 
@@ -37,23 +45,138 @@ def main():
 
     _temp_dir.mkdir(parents=True, exist_ok=True)
 
-    transcribe_pdf(args.input)
+    # Expand glob patterns and validate inputs
+    input_files = expand_and_validate_inputs(args.inputs)
+
+    if not input_files:
+        print("Error: No valid input files found.", file=sys.stderr)
+        sys.exit(1)
+
+    # Process all inputs
+    process_inputs(input_files)
 
 
-def transcribe_pdf(input_path):
+def expand_and_validate_inputs(input_args):
+    """Expand glob patterns and validate input files."""
+    input_files = []
+    supported_extensions = {
+        ".pdf",
+        ".jpg",
+        ".jpeg",
+        ".png",
+        ".tiff",
+        ".tif",
+        ".bmp",
+        ".gif",
+    }
+
+    for arg in input_args:
+        # Check if it's a glob pattern
+        if "*" in arg or "?" in arg or "[" in arg:
+            # Expand glob pattern
+            expanded = glob.glob(arg)
+            if not expanded:
+                print(
+                    f"Warning: No files found matching pattern '{arg}'", file=sys.stderr
+                )
+                continue
+            input_files.extend(Path(f) for f in expanded)
+        else:
+            # Direct file path
+            input_files.append(Path(arg))
+
+    # Validate files exist and have supported extensions
+    valid_files = []
+    for file_path in input_files:
+        if not file_path.exists():
+            print(f"Warning: File '{file_path}' does not exist", file=sys.stderr)
+            continue
+
+        if not file_path.is_file():
+            print(f"Warning: '{file_path}' is not a file", file=sys.stderr)
+            continue
+
+        if file_path.suffix.lower() not in supported_extensions:
+            print(
+                f"Warning: '{file_path}' has unsupported extension. Supported: {', '.join(supported_extensions)}",
+                file=sys.stderr,
+            )
+            continue
+
+        valid_files.append(file_path)
+
+    return valid_files
+
+
+def detect_file_type(file_path):
+    """Detect if file is PDF or image based on extension."""
+    pdf_extensions = {".pdf"}
+    image_extensions = {".jpg", ".jpeg", ".png", ".tiff", ".tif", ".bmp", ".gif"}
+
+    ext = file_path.suffix.lower()
+    if ext in pdf_extensions:
+        return "pdf"
+    elif ext in image_extensions:
+        return "image"
+    else:
+        return "unknown"
+
+
+def process_inputs(input_files):
+    """Process all input files, handling both PDFs and images."""
+    all_transcription_files = []
+
+    for input_file in input_files:
+        print(f"\nProcessing: {input_file}")
+        file_type = detect_file_type(input_file)
+
+        if file_type == "pdf":
+            transcription_files = process_pdf(input_file)
+        elif file_type == "image":
+            transcription_files = process_image(input_file)
+        else:
+            print(f"Error: Unsupported file type for {input_file}", file=sys.stderr)
+            continue
+
+        all_transcription_files.extend(transcription_files)
+
+    # Output final concatenated result
+    if all_transcription_files:
+        print("\n" + "=" * 80)
+        print("FINAL TRANSCRIPTION")
+        print("=" * 80)
+        print(concatenate_file_text(all_transcription_files))
+
+
+def process_pdf(input_path):
+    """Process a PDF file by converting to images and transcribing."""
     page_images = split_pdf_to_images(input_path)
-    print("Page images:")
-    print(page_images)
+    print(f"Split PDF into {len(list(page_images))} page images")
 
+    # Re-glob since the previous call consumed the generator
+    page_images = _temp_dir.glob(f"{input_path.stem}-image*.jpg")
     transcription_files = [transcribe_image(page_image) for page_image in page_images]
 
-    print(concatenate_file_text(transcription_files))
+    return transcription_files
+
+
+def process_image(input_path):
+    """Process a single image file by transcribing it directly."""
+    # Copy image to temp directory to maintain consistent workflow
+    temp_image_path = _temp_dir / f"{input_path.stem}_image{input_path.suffix}"
+
+    # Use plumbum's cp or just copy the file content
+    with open(input_path, "rb") as src, open(temp_image_path, "wb") as dst:
+        dst.write(src.read())
+
+    transcription_file = transcribe_image(temp_image_path)
+    return [transcription_file]
 
 
 def split_pdf_to_images(input_path):
     pdftoppm["-jpeg", str(input_path), _temp_dir / f"{input_path.stem}-image"] & FG
     print("Split pdf into images")
-    return _temp_dir.glob("*.jpg")
+    return _temp_dir.glob(f"{input_path.stem}-image*.jpg")
 
 
 def transcribe_image(path_to_file):
