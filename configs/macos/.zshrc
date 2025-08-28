@@ -25,8 +25,7 @@ HISTFILE=~/.zsh_history
 HISTSIZE=1000000000
 SAVEHIST=1000000000 
 setopt APPEND_HISTORY      
-setopt INC_APPEND_HISTORY  
-setopt SHARE_HISTORY       
+setopt INC_APPEND_HISTORY   
 setopt HIST_EXPIRE_DUPS_FIRST 
 setopt HIST_IGNORE_DUPS    # Do not store duplicate commands
 setopt HIST_FIND_NO_DUPS   # Do not display duplicate lines when searching
