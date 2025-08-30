@@ -1,12 +1,18 @@
 Run install script as sudo
 
+```
+curl -fsSL https://raw.githubusercontent.com/iansedano/config/refs/heads/main/setup/fedora-setup/install-sudo.sh | sudo bash
+```
+
 ```bash
-ssh-keygen -C iansedano@gmail.com
-cat ~/.ssh/id_rsa.pub
-# link github
+gh auth login
 mkdir dev
 cd dev
-git clone git@github.com:iansedano/CodeSnips-Notes.git
+mkdir iansedano
+cd iansedano
+gh clone config
+gh clone wtf
+gh clone git-journal
 ```
 
 download dropbox rpm from site and install manual

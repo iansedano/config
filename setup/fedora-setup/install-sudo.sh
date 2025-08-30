@@ -1,15 +1,15 @@
 exec &> >(tee -a install-sudo.log)
 
-dnf5 upgrade -y
+dnf upgrade -y
 
 rpmdomain="https://mirrors.rpmfusion.org/"
 freerepo="free/fedora/rpmfusion-free-release-$(rpm -E %fedora)"
 nonfreerepo="nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora)"
 
-dnf5 install -y "$rpmdomain$freerepo.noarch.rpm"
-dnf5 install -y "$rpmdomain$nonfreerepo.noarch.rpm"
-dnf5 install -y fedora-workstation-repositories # for chrome
-dnf5 config-manager setopt google-chrome.enabled=1
+dnf install -y "$rpmdomain$freerepo.noarch.rpm"
+dnf install -y "$rpmdomain$nonfreerepo.noarch.rpm"
+dnf install -y fedora-workstation-repositories # for chrome
+dnf config-manager setopt google-chrome.enabled=1
 
 terra_repo_url="https://terra.fyralabs.com/terra.repo"
 terra_repo_id="terra"
