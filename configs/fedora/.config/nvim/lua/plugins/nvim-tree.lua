@@ -19,9 +19,13 @@ return {
 	dependencies = {
 		"nvim-tree/nvim-web-devicons",
 	},
+	keys = {
+		{ "<leader>b", "<cmd>NvimTreeToggle<cr>", desc = "Toggle NvimTree" },
+	},
 	opts = {
 		filters = {
 			dotfiles = false,
+			git_ignored = false,
 		},
 	},
 }

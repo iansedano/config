@@ -132,6 +132,7 @@ packages=(
   libuuid-devel
   gdbm-devel
   libnsl2-devel
+  fuse-libs
 )
 
 for package in "${packages[@]}"; do
@@ -155,7 +156,3 @@ fi
 
 dnf install -yq sublime-text
 
-# oh my posh
-if ! command -v oh-my-posh >/dev/null 2>&1; then
-  curl -s https://ohmyposh.dev/install.sh | bash -s
-fi

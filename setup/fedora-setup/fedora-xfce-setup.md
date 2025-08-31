@@ -32,14 +32,6 @@ while true; do dropbox status; sleep 10; done
 # Ctrl + C to exit
 ```
 
-create symbolic links (from obsolete linux configs repo)
-
-```bash
-ln -sf source target
-```
-
-link symbolic force(replace target) source(file in repo) target(home folder)
-
 ```bash
 sudo systemctl enable mysqld
 sudo systemctl start mysqld

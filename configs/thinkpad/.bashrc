@@ -5,10 +5,10 @@ DESKTOP="$DROPBOX/Desktop"
 DEV="$HOME/dev"
 DROPBOX_DEV="$DROPBOX/dev"
 NOTEBOOK="$DROPBOX/notebook"
-CODESNIP="$DEV/CodeSnips-Notes"
-POSH_CONFIG="$CODESNIP/configs/common/posh.omp.json"
-SNIPPETS="$CODESNIP/snippets"
-SCRIPTS="$CODESNIP/scripts"
+CONFIG="$DEV/iansedano/config"
+POSH_CONFIG="$CONFIG/configs/common/posh.omp.json"
+SNIPPETS="$DEV/iansedano/wtf/snippets"
+SCRIPTS="$CONFIG/scripts"
 
 if [ -f /etc/bashrc ]; then
   . /etc/bashrc
@@ -46,9 +46,11 @@ if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
   PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 fi
 
-if ! [[ "$PATH" =~ (^|:)"$CODESNIP/scripts"(:|$) ]]; then
-  PATH="$CODESNIP/scripts:$PATH"
+if ! [[ "$PATH" =~ (^|:)"$CONFIG/scripts"(:|$) ]]; then
+  PATH="$CONFIG/scripts:$PATH"
 fi
+
+PATH="$HOME/.cargo/bin:$PATH"
 
 export PATH
 
@@ -84,7 +86,7 @@ fi
 
 light() {
   export BAT_THEME="gruvbox-light"
-  alacritty msg config "$(cat ~/.config/alacritty/light.toml)"
+  alacritty msg config "$(cat ~/.config/alacritty/light.toml)" 
 }
 
 dark() {
@@ -99,7 +101,7 @@ dark() {
 alias desktop="cd \$DESKTOP"
 alias dev="cd \$DEV"
 alias dropdev="cd \$DROPBOX_DEV"
-alias codesnip="cd \$CODESNIP"
+alias config="cd \$CONFIG"
 alias notebook="cd \$NOTEBOOK"
 
 # ========================================
@@ -171,14 +173,6 @@ export NVM_DIR="$HOME/.nvm"
 # Python
 # ========================================
 
-# export PYENV_ROOT="$HOME/.pyenv"
-# export PATH="$PYENV_ROOT/bin:$PATH"
-# if command -v pyenv 1>/dev/null 2>&1; then
-#   eval "$(pyenv init -)"
-# fi
-
-alias mkvenv="mkdir venv; echo 'venv' > .dbignore; dbignore; python -m venv venv; source venv/bin/activate"
-alias venv="source venv/bin/activate"
 
 # ========================================
 # Java
@@ -199,10 +193,7 @@ complete -c idea
 # Rust
 # ========================================
 
-# Check if rustup is installed
-if [ -x "$(command -v rustup)" ]; then
-  . "$HOME/.cargo/env"
-fi
+# source "$HOME/.cargo/env"
 
 # ========================================
 # Screenshots
@@ -219,3 +210,4 @@ function manage_screenshots() {
 # =======================================
 
 eval "$(zoxide init bash)"
+

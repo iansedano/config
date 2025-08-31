@@ -3,7 +3,7 @@
 # Colors (Ayu Light)
 
 [font.normal]
-family = "CaskaydiaCove NFP"
+family = "CaskaydiaCove Nerd Font"
 style = "RegularLight"
 
 # Default colors - taken from ayu-colors
