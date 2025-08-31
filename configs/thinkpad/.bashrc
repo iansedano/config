@@ -10,6 +10,8 @@ POSH_CONFIG="$CONFIG/configs/common/posh.omp.json"
 SNIPPETS="$DEV/iansedano/wtf/snippets"
 SCRIPTS="$CONFIG/scripts"
 
+export XDG_CONFIG_HOME="$HOME/.config"
+
 if [ -f /etc/bashrc ]; then
   . /etc/bashrc
 fi

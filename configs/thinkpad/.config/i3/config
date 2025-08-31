@@ -25,6 +25,8 @@ exec --no-startup-id dex-autostart --autostart --environment i3
 # screen before suspend. Use loginctl lock-session to lock your screen.
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork -c 404040
 
+exec --no-startup-id xinput set-prop 9 "libinput Natural Scrolling Enabled" 1
+
 # NetworkManager
 exec --no-startup-id nm-applet
 
