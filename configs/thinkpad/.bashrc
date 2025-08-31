@@ -51,6 +51,7 @@ if ! [[ "$PATH" =~ (^|:)"$CONFIG/scripts"(:|$) ]]; then
 fi
 
 PATH="$HOME/.cargo/bin:$PATH"
+PATH="$SCRIPTS:$PATH"
 
 export PATH
 
@@ -124,55 +125,12 @@ runbg() {
 complete -c runbg
 
 # ========================================
-# Notes & Snippets
-# ========================================
-
-alias snips="cd \$SNIPPETS"
-snip() {
-  read -p "Enter snippet name: " name
-  nvim "$SNIPPETS/$(date '+%Y%m')-${name}.md"
-}
-alias snippets="ls \$SNIPPETS"
-
-note() {
-  if [[ -z $1 ]]; then
-    echo "Error: Provide note name"
-    return 1
-  else
-    nvim "$NOTEBOOK/0-unprocessed/$1.md"
-  fi
-}
-
-todo() {
-  if [[ -z $1 ]]; then
-    nvim "$NOTEBOOK/TODO.md"
-  else
-    nvim "$NOTEBOOK/TODO-$1.md"
-  fi
-}
-
-alias scratch="nvim \$NOTEBOOK/SCRATCH.md"
-
-mem() {
-  nvim "$NOTEBOOK/mem.md"
-}
-
-journal() {
-  nvim "$NOTEBOOK/journal/$(date '+%Y%m%d').md"
-}
-
-# ========================================
 # JavaScript
 # ========================================
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
-
-# ========================================
-# Python
-# ========================================
-
 
 # ========================================
 # Java

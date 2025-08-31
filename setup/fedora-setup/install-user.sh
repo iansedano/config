@@ -38,6 +38,9 @@ curl -sL https://github.com/Jabba-Team/jabba/raw/main/install.sh | bash && . ~/.
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash # needs restart
 nvm install --lts
 
+# Rust
+rustup-init
+
 # Espanso (didn't work if not in ~/opt)
 ESPANSO_URL='https://github.com/espanso/espanso/releases/download/v2.2.1/Espanso-X11.AppImage'
 mkdir ~/opt

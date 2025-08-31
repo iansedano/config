@@ -56,6 +56,7 @@ packages=(
   tldr
   uv
   ollama
+  rustup
 
   # ==========
   # X11 Tools
