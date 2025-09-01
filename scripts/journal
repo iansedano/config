@@ -11,7 +11,54 @@ from datetime import datetime
 from pathlib import Path
 
 import tomllib
-from platformdirs import user_config_dir
+
+
+def main():
+    # Get config file path
+    config_path = get_config_path()
+
+    # Create default config if it doesn't exist
+    if not config_path.exists():
+        create_default_config(config_path)
+        print(f"Created default config file: {config_path}")
+
+    # Load config
+    journal_config = load_config(config_path)
+
+    # Prompt for missing config values
+    folder, editor = prompt_user_config(config_path, journal_config)
+
+    # Generate current date in YYYYMM format
+    current_date = datetime.now()
+    date_string = current_date.strftime("%Y%m")
+
+    # Construct file path
+    journal_folder = Path(folder).expanduser().resolve()
+    journal_file = journal_folder / f"{date_string}.md"
+
+    try:
+        # Create journal directory if it doesn't exist
+        journal_folder.mkdir(parents=True, exist_ok=True)
+
+        # Create empty journal file if it doesn't exist
+        if not journal_file.exists():
+            journal_file.touch()
+            print(f"Created new journal file: {journal_file}")
+        else:
+            print(f"Opening existing journal file: {journal_file}")
+
+        # Launch editor with the journal file
+        subprocess.run([editor, str(journal_file)])
+
+    except FileNotFoundError:
+        print(f"Error: Editor '{editor}' not found", file=sys.stderr)
+        sys.exit(1)
+    except PermissionError:
+        print(f"Error: Permission denied accessing '{journal_folder}'", file=sys.stderr)
+        sys.exit(1)
+    except Exception as e:
+        print(f"Error: {e}", file=sys.stderr)
+        sys.exit(1)
 
 
 def get_config_path():
@@ -81,54 +128,6 @@ def prompt_user_config(config_path, journal_config):
         print(f"Config saved to: {config_path}")
 
     return folder, editor
-
-
-def main():
-    # Get config file path
-    config_path = get_config_path()
-
-    # Create default config if it doesn't exist
-    if not config_path.exists():
-        create_default_config(config_path)
-        print(f"Created default config file: {config_path}")
-
-    # Load config
-    journal_config = load_config(config_path)
-
-    # Prompt for missing config values
-    folder, editor = prompt_user_config(config_path, journal_config)
-
-    # Generate current date in YYYYMM format
-    current_date = datetime.now()
-    date_string = current_date.strftime("%Y%m")
-
-    # Construct file path
-    journal_folder = Path(folder).expanduser().resolve()
-    journal_file = journal_folder / f"{date_string}.md"
-
-    try:
-        # Create journal directory if it doesn't exist
-        journal_folder.mkdir(parents=True, exist_ok=True)
-
-        # Create empty journal file if it doesn't exist
-        if not journal_file.exists():
-            journal_file.touch()
-            print(f"Created new journal file: {journal_file}")
-        else:
-            print(f"Opening existing journal file: {journal_file}")
-
-        # Launch editor with the journal file
-        subprocess.run([editor, str(journal_file)])
-
-    except FileNotFoundError:
-        print(f"Error: Editor '{editor}' not found", file=sys.stderr)
-        sys.exit(1)
-    except PermissionError:
-        print(f"Error: Permission denied accessing '{journal_folder}'", file=sys.stderr)
-        sys.exit(1)
-    except Exception as e:
-        print(f"Error: {e}", file=sys.stderr)
-        sys.exit(1)
 
 
 if __name__ == "__main__":
