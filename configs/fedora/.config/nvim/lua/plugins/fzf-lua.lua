@@ -1,16 +1,15 @@
 return {
 	"ibhagwan/fzf-lua",
+	keys = {
+		{ "<leader>p", "<cmd>FzfLua files<cr>", "n", desc = "Find File" },
+		{ "<leader>P", "<cmd>FzfLua commands<cr>", "n", desc = "Command Palette" },
+		{ "<leader>fb", "<cmd>FzfLua buffers<cr>", "n", desc = "Find Buffer" },
+		{ "<leader>fz", "<cmd>FzfLua<cr>", "n", desc = "All FzfLua menus" },
+		{ "<leader>fg", "<cmd>FzfLua live_grep<cr>", "n", desc = "Rip Grep" },
+	},
 	opts = {
 		grep = {
-			grep_opts = "--binary-files=without-match --line-number --recursive --color=auto --perl-regexp -e --hidden",
-			rg_opts = "--column --line-number --no-heading --color=always --smart-case --max-columns=4096 -e --hidden",
+			hidden = true,
 		},
-	},
-	keys = {
-		{ "<leader>p", ":FzfLua files<CR>", "n" },
-		{ "<leader>P", ":FzfLua commands<CR>", "n" },
-		{ "<leader>b", ":FzfLua buffers<CR>", "n" },
-		{ "<leader>z", ":FzfLua<CR>", "n" },
-		{ "<leader>F", ":FzfLua live_grep<CR>", "n" },
 	},
 }

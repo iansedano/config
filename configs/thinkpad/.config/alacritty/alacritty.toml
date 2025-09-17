@@ -2,26 +2,26 @@
 # https://github.com/alacritty/alacritty-theme
 
 [window]
-decorations = "None"
+decorations = "full"
 padding = { x = 2, y = 2 }
 
 [font]
 size = 8.0
 
 [font.bold]
-family = "CaskaydiaCove NFP"
+family = "CaskaydiaCove Nerd Font"
 style = "Bold"
 
 [font.bold_italic]
-family = "CaskaydiaCove NFP"
+family = "CaskaydiaCove Nerd Font"
 style = "Bold Italic"
 
 [font.italic]
-family = "CaskaydiaCove NFP"
+family = "CaskaydiaCove Nerd Font"
 style = "Italic"
 
 [font.normal]
-family = "CaskaydiaCove NFP"
+family = "CaskaydiaCove Nerd Font"
 style = "RegularLight"
 
 [keyboard]

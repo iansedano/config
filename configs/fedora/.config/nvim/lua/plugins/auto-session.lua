@@ -7,10 +7,6 @@ return {
 	opts = {
 		suppressed_dirs = { "~/", "~/dev", "~/Dropbox", "/" },
 		-- log_level = 'debug',
-		no_restore_cmds = {
-			function()
-				require("nvim-tree.api").tree.open()
-			end,
-		},
+		no_restore_cmds = {},
 	},
 }

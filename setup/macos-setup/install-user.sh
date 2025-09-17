@@ -32,7 +32,6 @@ formulae=(
   gh            # Github CLI
   imagemagick   # Image manipulation
   libjpeg-turbo # JPEG manipulation
-  # pipx                      # Python installer for standalone execs (use uv)
   oh-my-posh         # Prompt theme engine
   ansible            # Install automation
   saulpw/vs/visidata # cli spreadsheet
@@ -42,10 +41,9 @@ formulae=(
   tre-command        # Modern tree command
   saml2aws           # AWS SAML CLI
   awscli             # AWS CLI
-  just               # Justfile runner (like Makefile)
-  # autoenv                   # Directory based environment activation, not used because interferes with ZOxide
-  docker
-  docker-compose
+  
+  # docker
+  # docker-compose
   mkcert
   libpq                       # Postgres client
   kubectl                     # Kubernetes CLI
@@ -59,7 +57,6 @@ formulae=(
   watch                       # Run command at intervals
   tldr                        # alternative man pages
 
-  # pyenv                     # Python version manager (using uv now)
   openssl  # SSL
   sqlite3  # SQLite
   xz       # Compression
