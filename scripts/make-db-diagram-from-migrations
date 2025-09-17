@@ -1,0 +1,102 @@
+#!/bin/bash
+
+# This script will exit immediately if any command fails.
+set -e
+
+# --- ⚠️ PLEASE CONFIGURE THESE VARIABLES ---
+
+# The name for the temporary database container and network.
+DB_CONTAINER_NAME="flyway-diagram-db"
+DOCKER_NETWORK="flyway-diagram-net"
+
+# Database configuration (PostgreSQL 15 is used here).
+# You can change this to another image like 'mysql:8'.
+DB_IMAGE="postgres:15"
+DB_USER="user"
+DB_PASSWORD="password"
+DB_NAME="diagram_db"
+# If you change the DB_IMAGE, you may also need to change the SchemaSpy type (-t) below.
+SCHEMASPY_DB_TYPE="pgsql" # Use 'mysql' for MySQL, etc.
+
+# --- Paths on your local machine ---
+# IMPORTANT: Replace with the absolute path to your SQL migrations folder.
+FLYWAY_MIGRATIONS_PATH="$(pwd)"
+
+# The local directory where the final HTML/diagram report will be saved.
+OUTPUT_DIR="$(pwd)/db-diagram-output"
+
+
+# --- Script Logic (No changes needed below this line) ---
+
+echo "--- Setting up environment ---"
+
+# Create the output directory if it doesn't exist.
+mkdir -p "${OUTPUT_DIR}"
+
+# Create a dedicated Docker network for our containers to communicate.
+echo "📦 Creating Docker network '${DOCKER_NETWORK}'..."
+# The > /dev/null redirects the normal output so it doesn't clutter the console.
+docker network create ${DOCKER_NETWORK} > /dev/null
+
+# Define a cleanup function to run when the script exits (normally or on error).
+cleanup() {
+  echo "" # Newline for cleaner output
+  echo "🧹 Cleaning up Docker resources..."
+  # Stop and remove the container, suppressing errors if they don't exist.
+  docker stop ${DB_CONTAINER_NAME} > /dev/null 2>&1 || true
+  docker rm ${DB_CONTAINER_NAME} > /dev/null 2>&1 || true
+  # Remove the network.
+  docker network rm ${DOCKER_NETWORK} > /dev/null 2>&1 || true
+}
+
+# Register the cleanup function to be called on script exit.
+trap cleanup EXIT
+
+echo -e "\n--- Starting Database Container ---"
+echo "🚀 Launching a temporary ${DB_IMAGE} container..."
+docker run --name ${DB_CONTAINER_NAME} \
+  --network ${DOCKER_NETWORK} \
+  -e POSTGRES_USER=${DB_USER} \
+  -e POSTGRES_PASSWORD=${DB_PASSWORD} \
+  -e POSTGRES_DB=${DB_NAME} \
+  -d ${DB_IMAGE}
+
+echo -n "⏳ Waiting for the database to be ready for connections"
+# This loop robustly waits for the database to accept commands.
+until docker exec ${DB_CONTAINER_NAME} pg_isready -U "${DB_USER}" -d "${DB_NAME}" > /dev/null 2>&1; do
+  printf "."
+  sleep 1
+done
+echo -e "\nDatabase is ready!"
+
+echo -e "\n--- Applying Migrations ---"
+echo "✈️ Running Flyway inside a container..."
+# The --rm flag automatically removes the container after it finishes.
+# The -v flag mounts your local migrations folder into the container.
+docker run --rm \
+  --network ${DOCKER_NETWORK} \
+  -v "${FLYWAY_MIGRATIONS_PATH}:/flyway/sql" \
+  flyway/flyway:10 \
+  -url="jdbc:postgresql://${DB_CONTAINER_NAME}/${DB_NAME}" \
+  -user=${DB_USER} \
+  -password=${DB_PASSWORD} \
+  migrate
+
+echo -e "\n--- Generating Diagram ---"
+echo "🎨 Running SchemaSpy to analyze the database schema..."
+# The -v flag mounts your local output directory, so the report is saved to your machine.
+docker run --rm \
+  --network ${DOCKER_NETWORK} \
+  -v "${OUTPUT_DIR}:/output" \
+  schemaspy/schemaspy:snapshot \
+  -t ${SCHEMASPY_DB_TYPE} \
+  -host ${DB_CONTAINER_NAME} \
+  -db ${DB_NAME} \
+  -u ${DB_USER} \
+  -p ${DB_PASSWORD}
+
+echo -e "\n--- ✨ Success! ---"
+echo "Diagram and report have been generated in:"
+echo "${OUTPUT_DIR}"
+echo "You can now open '${OUTPUT_DIR}/index.html' in your browser."
+
