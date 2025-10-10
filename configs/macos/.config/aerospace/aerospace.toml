@@ -8,7 +8,7 @@ enable-normalization-flatten-containers = false
 enable-normalization-opposite-orientation-for-nested-containers = false
 
 after-startup-command = [
-  'exec-and-forget borders active_color=0xff494d64 inactive_color=0xffe1e3e4 width=5.0'
+  'exec-and-forget borders active_color=0xffe1e3e4 inactive_color=0xff494d64  width=6.0'
 ]
 
 # Mouse follows focus when focused monitor changes
