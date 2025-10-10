@@ -18,8 +18,19 @@ source "$IAN_CONFIG/import_script.sh"
 source "$DEV/iansedano/billy/scripts/bynderrc"
 
 # ========================================
+# fzf
+# ========================================
+
+if command -v fzf >/dev/null; then
+  source <(fzf --zsh)
+fi
+
+
+# ========================================
 # History
 # ========================================
+
+eval "$(atuin init zsh --disable-up-arrow)"
 
 HISTFILE=~/.zsh_history
 HISTSIZE=1000000000
@@ -75,13 +86,6 @@ bindkey '^?' backward-delete-char # Allow backspace over previous insert session
 
 eval "$(direnv hook zsh)"
 
-# ========================================
-# fzf
-# ========================================
-
-if command -v fzf >/dev/null; then
-  source <(fzf --zsh)
-fi
 
 # ========================================
 # Light and Dark Mode

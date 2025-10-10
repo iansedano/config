@@ -78,6 +78,7 @@ formulae=(
   packer # Hashicorp Packer for building images
   kcat # Kafka CLI tool (formerly kafkacat)
   protobuf # Protocol Buffers compiler
+  atuin     # Shell history reimagined (with search and more)
 )
 
 casks=(
