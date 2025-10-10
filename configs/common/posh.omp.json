@@ -112,7 +112,7 @@
   "transient_prompt": {
     "background": "#3a3b3d",
     "foreground": "#83858a",
-    "template": "\n{{ .PWD }} - {{now | date \"15:04:05\"}} \n❯ "
+    "template": "\n{{ .PWD }}{{ if .Segments.Git.HEAD }} [{{ .Segments.Git.HEAD }}]{{ end }} - {{now | date \"15:04:05\"}} \n❯ "
   },
   
   "version": 3,
