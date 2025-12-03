@@ -194,9 +194,15 @@
                                     {
                                         "identifiers": [{ "is_built_in_keyboard": true }],
                                         "type": "device_if"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "net.kovidgoyal.kitty"
+                                        ],
+                                        "type": "frontmost_application_unless"
                                     }
                                 ],
-                                "description": "fn to command",
+                                "description": "fn to command - if not kitty",
                                 "from": {
                                     "apple_vendor_top_case_key_code": "keyboard_fn",
                                     "modifiers": { "optional": ["any"] }
@@ -209,9 +215,15 @@
                                     {
                                         "identifiers": [{ "is_built_in_keyboard": true }],
                                         "type": "device_if"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "net.kovidgoyal.kitty"
+                                        ],
+                                        "type": "frontmost_application_if"
                                     }
                                 ],
-                                "description": "fn to control",
+                                "description": "fn to control - if kitty",
                                 "from": {
                                     "apple_vendor_top_case_key_code": "keyboard_fn",
                                     "modifiers": { "optional": ["any"] }

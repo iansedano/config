@@ -79,6 +79,7 @@ formulae=(
   kcat # Kafka CLI tool (formerly kafkacat)
   protobuf # Protocol Buffers compiler
   atuin     # Shell history reimagined (with search and more)
+  marta  # File manager GUI
 )
 
 casks=(

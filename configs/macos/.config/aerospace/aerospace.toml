@@ -30,7 +30,21 @@ alt-enter = 'exec-and-forget kitty -1 -d ~/'
 cmd-ctrl-c = 'exec-and-forget open -na "Google Chrome" --args --new-window'
 cmd-ctrl-k = 'exec-and-forget open -a "KeePassXC"'
 cmd-ctrl-t = 'exec-and-forget open -a "Sublime Text" --args -n'
-alt-shift-q = 'close'
+
+
+# alt-shift-q = 'close'
+
+alt-shift-q = '''exec-and-forget
+bash -c '
+current_workspace=$(aerospace list-workspaces --focused)
+
+aerospace close
+
+sleep 0.1
+
+aerospace workspace "$current_workspace"
+'
+'''
 
 # i3 wraps focus by default
 alt-h = 'focus --boundaries-action wrap-around-the-workspace left'
