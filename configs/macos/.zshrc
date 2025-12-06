@@ -149,6 +149,15 @@ uv-activate-script-venv() {
   source "$parent_dir/activate"
 }
 
+git-cleanup() {
+  # Dependency: git-removed-branches
+  local current_branch=$(git branch --show-current)
+  git checkout main 2>/dev/null || git checkout master
+  git pull --prune
+  git removed-branches --prune --force
+  git checkout "$current_branch" 2>/dev/null
+}
+
 # ========================================
 # Notes & Snippets
 # ========================================
