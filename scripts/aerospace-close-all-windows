@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+aerospace list-windows --all | awk -F '|' '{print $1}' | xargs -I {} aerospace close --quit-if-last-window --window-id {}
