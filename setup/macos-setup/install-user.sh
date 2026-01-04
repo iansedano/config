@@ -34,7 +34,6 @@ formulae=(
   libjpeg-turbo # JPEG manipulation
   oh-my-posh         # Prompt theme engine
   ansible            # Install automation
-  saulpw/vs/visidata # cli spreadsheet
   gnumeric           # Lightweight, fast spreadsheet app
   xonsh              # Python shell
   ruff               # Python linter and formatter
@@ -147,6 +146,9 @@ brew install borders
 # pyenv install $LATEST_PYTHON
 
 # pipx install black
+
+
+uv tool install visidata --with openpyxl
 
 # May need an exit and relog to work...
 mkdir "$HOME/.nvm"
