@@ -139,6 +139,27 @@ runbg() {
 }
 compdef '_files' runbg
 
+function qrun() {
+  (
+    # 1. Run the command, redirecting both stdout and stderr to /dev/null
+    "$@" &> /dev/null
+    
+    # 2. Capture the exit code
+    EXIT_CODE=$?
+
+    # 3. Escape double quotes in the command string for AppleScript safety
+    CMD_STR="${*//\"/\\\"}"
+
+    # 4. Trigger the notification based on success (0) or failure
+    if [ $EXIT_CODE -eq 0 ]; then
+      osascript -e "display notification \"$CMD_STR\" with title \"✅ Command Succeeded\""
+    else
+      osascript -e "display notification \"$CMD_STR\" with title \"❌ Command Failed\""
+    fi
+  ) &!  # 5. Run the entire subshell in background and disown immediately
+}
+compdef '_files' runbg
+
 clear() {
   printf '\033[2J\033[3J\033[1;1H'
 }
