@@ -79,6 +79,9 @@ formulae=(
   protobuf # Protocol Buffers compiler
   atuin     # Shell history reimagined (with search and more)
   marta  # File manager GUI
+
+  git-lfs
+  rsync
 )
 
 casks=(
